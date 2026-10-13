@@ -1,6 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
+import BeveledBox from './components/hud/BeveledBox';
+import ChamferButton from './components/hud/ChamferButton';
+import HudBadge from './components/hud/HudBadge';
+import CornerBrackets from './components/hud/CornerBrackets';
+import { Terminal, Shield, Zap, Sparkles } from 'lucide-react';
 
 export default function App() {
+  const [activeTab, setActiveTab] = useState('overview');
+
   return (
     <div style={{
       minHeight: '100vh',
@@ -23,86 +30,139 @@ export default function App() {
         [SYS: INITIALIZED // ACEDEVS HUD v1.0]
       </div>
 
-      <div style={{
-        maxWidth: '800px',
-        width: '100%',
-        padding: '2.5rem',
-        background: 'var(--color-cyan-glass)',
-        backdropFilter: 'var(--glass-blur)',
-        WebkitBackdropFilter: 'var(--glass-blur)',
-        border: '1px solid var(--color-cyan-hairline)',
-        position: 'relative'
-      }}>
+      <BeveledBox
+        variant="glass"
+        cornerSize={16}
+        glow
+        style={{
+          maxWidth: '850px',
+          width: '100%',
+          padding: '2.5rem',
+        }}
+      >
+        <CornerBrackets />
+
         <div style={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          marginBottom: '1.5rem',
+          marginBottom: '1.75rem',
           borderBottom: '1px solid var(--color-cyan-hairline)',
-          paddingBottom: '1rem'
+          paddingBottom: '1.25rem'
         }}>
-          <h1 style={{
-            fontSize: '1.75rem',
-            fontWeight: 700,
-            letterSpacing: '0.1em',
-            textTransform: 'uppercase',
-            color: 'var(--color-cyan-glow)'
-          }}>
-            ACEDEVS // COLLECTIVE
-          </h1>
-          <span style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '0.75rem',
-            background: 'var(--color-cyan-faint)',
-            padding: '0.25rem 0.6rem',
-            color: 'var(--color-cyan-glow)',
-            letterSpacing: '0.1em'
-          }}>
-            DS-01 VERIFIED
-          </span>
+          <div>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.75rem',
+              marginBottom: '0.25rem'
+            }}>
+              <h1 style={{
+                fontSize: '1.75rem',
+                fontWeight: 700,
+                letterSpacing: '0.12em',
+                textTransform: 'uppercase',
+                color: 'var(--color-cyan-glow)'
+              }}>
+                ACEDEVS // COLLECTIVE
+              </h1>
+              <HudBadge label="LIVE" showDot active />
+            </div>
+            <div className="hud-telemetry">
+              TEAM: ARBAZ ARSHAD & DEVESH DAS // HUD ENGINE v1.0
+            </div>
+          </div>
+
+          <HudBadge label="DS-02 PRIMITIVES" count={2} active />
         </div>
 
         <p style={{
-          fontSize: '1rem',
-          lineHeight: '1.6',
+          fontSize: '0.95rem',
+          lineHeight: '1.7',
           color: 'var(--color-cyan-muted)',
           marginBottom: '2rem'
         }}>
-          Foundation initialized with Hubtown-inspired Tactical HUD design system.
-          Deep space navy canvas (#020a19), ice cyan luminescence (#d5e0ff), Space Grotesk headings, and Space Mono telemetry.
+          Tactical HUD UI Primitives verified. Angled 45° chamfered geometry, responsive SVG hairline perimeter borders, high-contrast inverted action buttons, and aerospace reticle brackets.
         </p>
 
+        {/* Buttons demonstration */}
+        <div style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: '1rem',
+          marginBottom: '2rem'
+        }}>
+          <ChamferButton
+            variant="inverted"
+            icon={<Zap size={15} />}
+            onClick={() => setActiveTab('action')}
+          >
+            Launch System
+          </ChamferButton>
+
+          <ChamferButton
+            variant="primary"
+            icon={<Terminal size={15} />}
+            onClick={() => setActiveTab('terminal')}
+          >
+            View Telemetry
+          </ChamferButton>
+
+          <ChamferButton
+            variant="ghost"
+            icon={<Shield size={15} />}
+            onClick={() => setActiveTab('security')}
+          >
+            Security Mesh [00]
+          </ChamferButton>
+        </div>
+
+        {/* Sub-grid of Beveled Boxes */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-          gap: '1rem'
+          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+          gap: '1.25rem'
         }}>
-          <div style={{
-            padding: '1rem',
-            background: 'var(--color-abyss-surface)',
-            border: '1px solid var(--color-cyan-faint)'
-          }}>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--color-cyan-muted)' }}>PRIMARY CANVAS</div>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9rem', color: 'var(--color-cyan-glow)', marginTop: '0.25rem' }}>#020a19</div>
-          </div>
-          <div style={{
-            padding: '1rem',
-            background: 'var(--color-cyan-glow)',
-            color: 'var(--color-ink)'
-          }}>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', fontWeight: 700 }}>ICE CYAN GLOW</div>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9rem', fontWeight: 700, marginTop: '0.25rem' }}>#d5e0ff</div>
-          </div>
-          <div style={{
-            padding: '1rem',
-            background: 'var(--color-abyss-surface)',
-            border: '1px solid var(--color-cyan-faint)'
-          }}>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--color-cyan-muted)' }}>DEVELOPERS</div>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: 'var(--color-cyan-glow)', marginTop: '0.25rem' }}>ARBAZ & DEVESH</div>
-          </div>
+          <BeveledBox variant="faint" cornerSize={10} style={{ padding: '1.25rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
+              <span className="hud-telemetry">MODULE 01</span>
+              <HudBadge count={1} />
+            </div>
+            <div style={{ fontWeight: 600, fontSize: '0.95rem', marginBottom: '0.25rem' }}>
+              Cut-Corner Geometry
+            </div>
+            <p style={{ fontSize: '0.8rem', color: 'var(--color-cyan-muted)', lineHeight: '1.5' }}>
+              SVG dynamic vector path with clip-path polygon integration.
+            </p>
+          </BeveledBox>
+
+          <BeveledBox variant="faint" cornerSize={10} style={{ padding: '1.25rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
+              <span className="hud-telemetry">MODULE 02</span>
+              <HudBadge count={2} />
+            </div>
+            <div style={{ fontWeight: 600, fontSize: '0.95rem', marginBottom: '0.25rem' }}>
+              Inverted Buttons
+            </div>
+            <p style={{ fontSize: '0.8rem', color: 'var(--color-cyan-muted)', lineHeight: '1.5' }}>
+              High-contrast ice cyan (#d5e0ff) buttons with deep navy typography.
+            </p>
+          </BeveledBox>
+
+          <BeveledBox variant="solid-dark" cornerSize={10} style={{ padding: '1.25rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
+              <span className="hud-telemetry">STATUS</span>
+              <HudBadge label="OK" active />
+            </div>
+            <div style={{ fontWeight: 600, fontSize: '0.95rem', marginBottom: '0.25rem' }}>
+              Dual Typography
+            </div>
+            <p style={{ fontSize: '0.8rem', color: 'var(--color-cyan-muted)', lineHeight: '1.5' }}>
+              Space Grotesk headers with Space Mono telemetry brackets.
+            </p>
+          </BeveledBox>
         </div>
-      </div>
+      </BeveledBox>
     </div>
   );
 }

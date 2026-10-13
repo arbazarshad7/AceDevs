@@ -1,0 +1,250 @@
+/* ==========================================================================
+   Tactical HUD Primitives CSS
+   ========================================================================== */
+
+/* 1. BeveledBox Container */
+.beveled-box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-smooth);
+}
+
+.beveled-box.variant-glass {
+  background: var(--color-abyss-glass);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+}
+
+.beveled-box.variant-solid-dark {
+  background: var(--color-panel-solid);
+}
+
+.beveled-box.variant-solid-light {
+  background: var(--color-cyan-glow);
+  color: var(--color-ink);
+}
+
+.beveled-box.variant-faint {
+  background: var(--color-cyan-glass);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+}
+
+.beveled-box-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+/* SVG Hairline Border Overlay */
+.beveled-border-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  overflow: visible;
+}
+
+.beveled-border-path {
+  fill: none;
+  stroke: var(--color-cyan-border);
+  stroke-width: 1;
+  transition: stroke var(--transition-fast), filter var(--transition-fast);
+}
+
+.beveled-box:hover .beveled-border-path {
+  stroke: var(--color-cyan-glow);
+  filter: drop-shadow(0 0 4px rgba(213, 224, 255, 0.45));
+}
+
+.beveled-box.glow {
+  box-shadow: var(--glow-cyan-subtle);
+}
+
+/* 2. ChamferButton */
+.chamfer-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  border: none;
+  background: none;
+  transition: all var(--transition-fast);
+  user-select: none;
+}
+
+.chamfer-btn-sm {
+  padding: 0.4rem 0.85rem;
+  font-size: 0.72rem;
+}
+
+.chamfer-btn-md {
+  padding: 0.65rem 1.4rem;
+  font-size: 0.82rem;
+}
+
+.chamfer-btn-lg {
+  padding: 0.9rem 2rem;
+  font-size: 0.95rem;
+}
+
+/* Button Variants */
+.chamfer-btn-primary {
+  background: var(--color-cyan-glass);
+  color: var(--color-cyan-glow);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  clip-path: polygon(
+    0 8px,
+    8px 0,
+    100% 0,
+    100% calc(100% - 8px),
+    calc(100% - 8px) 100%,
+    0 100%
+  );
+  border: 1px solid var(--color-cyan-border);
+}
+
+.chamfer-btn-primary:hover:not(:disabled) {
+  background: var(--color-cyan-glass-hover);
+  border-color: var(--color-cyan-glow);
+  box-shadow: var(--glow-cyan-medium);
+  letter-spacing: 0.15em;
+  transform: translateY(-1px);
+}
+
+.chamfer-btn-inverted {
+  background: var(--color-cyan-glow);
+  color: var(--color-ink);
+  font-weight: 700;
+  clip-path: polygon(
+    0 8px,
+    8px 0,
+    100% 0,
+    100% calc(100% - 8px),
+    calc(100% - 8px) 100%,
+    0 100%
+  );
+  box-shadow: var(--glow-cyan-subtle);
+}
+
+.chamfer-btn-inverted:hover:not(:disabled) {
+  background: #ffffff;
+  box-shadow: var(--glow-cyan-intense);
+  transform: translateY(-1px);
+}
+
+.chamfer-btn-ghost {
+  color: var(--color-cyan-muted);
+  background: transparent;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.chamfer-btn-ghost:hover:not(:disabled) {
+  color: var(--color-cyan-glow);
+  letter-spacing: 0.15em;
+}
+
+.chamfer-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* 3. HudBadge */
+.hud-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+  background: rgba(213, 224, 255, 0.06);
+  border: 1px solid var(--color-cyan-hairline);
+  color: var(--color-cyan-muted);
+  user-select: none;
+}
+
+.hud-badge-active {
+  color: var(--color-cyan-glow);
+  border-color: var(--color-cyan-border);
+  background: rgba(213, 224, 255, 0.12);
+}
+
+.hud-badge-dot {
+  width: 5px;
+  height: 5px;
+  background-color: var(--color-cyan-glow);
+  box-shadow: 0 0 6px var(--color-cyan-glow);
+  display: inline-block;
+  animation: pulse-dot 2s infinite ease-in-out;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 0.4; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+/* 4. CornerBrackets Reticle Overlay */
+.corner-brackets-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.corner-bracket {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-color: var(--color-cyan-border);
+  border-style: solid;
+  transition: all var(--transition-fast);
+}
+
+.corner-bracket-tl {
+  top: 0;
+  left: 0;
+  border-width: 1px 0 0 1px;
+}
+
+.corner-bracket-tr {
+  top: 0;
+  right: 0;
+  border-width: 1px 1px 0 0;
+}
+
+.corner-bracket-bl {
+  bottom: 0;
+  left: 0;
+  border-width: 0 0 1px 1px;
+}
+
+.corner-bracket-br {
+  bottom: 0;
+  right: 0;
+  border-width: 0 1px 1px 0;
+}
+
+.beveled-box:hover .corner-bracket {
+  border-color: var(--color-cyan-glow);
+  width: 10px;
+  height: 10px;
+}
