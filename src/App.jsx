@@ -9,14 +9,19 @@ import CornerBrackets from './components/hud/CornerBrackets';
 import TeamShowcase from './components/team/TeamShowcase';
 import CollectiveRepos from './components/repos/CollectiveRepos';
 import SearchModal from './components/search/SearchModal';
+import AuthModal from './components/auth/AuthModal';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import { ArrowRight, Code, Database, Globe, Cpu, Github, X, Compass, Activity, Users } from 'lucide-react';
 
-export default function App() {
+function PortfolioCockpit() {
+  const { user, isDeveloper, developerProfile, signOut } = useAuth();
+
   const [section, setSection] = useState('hero'); // 'hero' | 'team' | 'showcase' | 'repos' | 'blog'
   const [bearing, setBearing] = useState(0);
   const [focusedNode, setFocusedNode] = useState(null);
   const [focusedMemberId, setFocusedMemberId] = useState(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   const formattedBearing = `${String(bearing).padStart(3, '0')}°`;
 
@@ -83,6 +88,10 @@ export default function App() {
         filterCount={0}
         onSearchClick={() => setIsSearchOpen(true)}
         onOpenListClick={() => handleSectionSelect('repos')}
+        user={user}
+        developerProfile={developerProfile}
+        onLoginClick={() => setIsAuthModalOpen(true)}
+        onLogoutClick={signOut}
       >
         {/* Dynamic Section Stage Content */}
         {section === 'team' ? (
@@ -409,6 +418,20 @@ export default function App() {
         onClose={() => setIsSearchOpen(false)}
         onSelectResult={handleSearchResultSelect}
       />
+
+      {/* 4. Tactical HUD Security Access Gateway Modal */}
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+      />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <AuthProvider>
+      <PortfolioCockpit />
+    </AuthProvider>
   );
 }

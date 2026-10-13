@@ -3,7 +3,7 @@ import ChamferButton from './ChamferButton';
 import HudBadge from './HudBadge';
 import ScaleIndicator from './ScaleIndicator';
 import CompassRosette from './CompassRosette';
-import { Search, LogIn, Menu, Layers } from 'lucide-react';
+import { Search, LogIn, LogOut, Menu, Layers } from 'lucide-react';
 import './viewport.css';
 
 /**
@@ -15,6 +15,9 @@ export default function ViewportHud({
   activeSection = 'hero',
   onSectionSelect = null,
   onLoginClick = null,
+  onLogoutClick = null,
+  user = null,
+  developerProfile = null,
   onSearchClick = null,
   onOpenListClick = null,
   filterCount = 0,
@@ -111,14 +114,54 @@ export default function ViewportHud({
               </button>
             )}
 
-            <ChamferButton
-              variant="inverted"
-              size="sm"
-              icon={<LogIn size={13} />}
-              onClick={onLoginClick || (() => alert('Supabase Auth modal will connect in Phase 6'))}
-            >
-              LOGIN
-            </ChamferButton>
+            {user ? (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                <div
+                  id="hud-user-profile-badge"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.4rem',
+                    padding: '0.3rem 0.6rem',
+                    background: 'rgba(10, 28, 61, 0.75)',
+                    border: '1px solid var(--color-cyan-bright)',
+                    color: '#ffffff',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.68rem',
+                    letterSpacing: '0.06em',
+                    clipPath: 'polygon(3px 0%, 100% 0%, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0% 100%, 0% 3px)'
+                  }}
+                  title={`Logged in as ${user.email}`}
+                >
+                  <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#55ff99', boxShadow: '0 0 6px #55ff99' }} />
+                  <span>
+                    {developerProfile ? `[${developerProfile.code} // ${developerProfile.name.split(' ')[0].toUpperCase()}]` : `[${user.email.split('@')[0].toUpperCase()}]`}
+                  </span>
+                </div>
+
+                <button
+                  id="nav-logout-btn"
+                  type="button"
+                  className="hud-nav-link"
+                  onClick={onLogoutClick}
+                  title="Sign Out"
+                  style={{ padding: '0.35rem 0.5rem', fontSize: '0.65rem', display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}
+                >
+                  <LogOut size={12} />
+                  <span>EXIT</span>
+                </button>
+              </div>
+            ) : (
+              <ChamferButton
+                id="nav-login-btn"
+                variant="inverted"
+                size="sm"
+                icon={<LogIn size={13} />}
+                onClick={onLoginClick}
+              >
+                LOGIN [00]
+              </ChamferButton>
+            )}
           </div>
         </header>
 
