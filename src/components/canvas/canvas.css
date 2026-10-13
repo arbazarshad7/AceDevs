@@ -1,0 +1,55 @@
+/* ==========================================================================
+   CyberCanvas WebGL Styles
+   ========================================================================== */
+
+.cyber-canvas-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  pointer-events: auto;
+  overflow: hidden;
+  background-color: var(--color-abyss);
+}
+
+.cyber-webgl-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Subtle Sci-Fi Lens Vignette Overlay */
+.cyber-canvas-vignette {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  background: radial-gradient(
+    circle at center,
+    rgba(2, 10, 25, 0) 35%,
+    rgba(2, 10, 25, 0.4) 70%,
+    rgba(2, 10, 25, 0.88) 100%
+  );
+}
+
+/* Peripheral Cybernetic Grid Scanlines (ultra-faint) */
+.cyber-canvas-scanlines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0.04;
+  background: linear-gradient(
+    rgba(213, 224, 255, 0) 50%,
+    rgba(213, 224, 255, 0.5) 50%
+  );
+  background-size: 100% 4px;
+}
