@@ -9,9 +9,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Design System & HUD Layout
 
-- [ ] **DS-01**: Global CSS design tokens implemented (Abyss navy `#020a19`, ice cyan `#d5e0ff`, translucent glass backgrounds, and hairline borders).
-- [ ] **DS-02**: Reusable chamfered/beveled box and button components featuring 45° cut corners and cyan hover states.
-- [ ] **DS-03**: Viewport HUD frame layout incorporating corner telemetry brackets (`[00]`), monospace status indicators, and an interactive heading compass.
+- [x] **DS-01**: Global CSS design tokens implemented (Abyss navy `#020a19`, ice cyan `#d5e0ff`, translucent glass backgrounds, and hairline borders).
+- [x] **DS-02**: Reusable chamfered/beveled box and button components featuring 45° cut corners and cyan hover states.
+- [x] **DS-03**: Viewport HUD frame layout incorporating corner telemetry brackets (`[00]`), monospace status indicators, and an interactive heading compass.
 
 ### 3D WebGL Hero Experience
 
@@ -79,9 +79,9 @@ Which phases cover which requirements.
 
 | Requirement | Phase | Status |
 | :--- | :--- | :--- |
-| DS-01 | Phase 1 | Pending |
-| DS-02 | Phase 1 | Pending |
-| DS-03 | Phase 1 | Pending |
+| DS-01 | Phase 1 | Complete |
+| DS-02 | Phase 1 | Complete |
+| DS-03 | Phase 1 | Complete |
 | 3D-01 | Phase 2 | Pending |
 | 3D-02 | Phase 2 | Pending |
 | 3D-03 | Phase 2 | Pending |
