@@ -1,0 +1,316 @@
+/* ==========================================================================
+   Viewport HUD Perimeter Framing CSS
+   ========================================================================== */
+
+/* Fullscreen Perimeter Wrapper */
+.viewport-hud-wrapper {
+  position: relative;
+  min-height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+  background-color: var(--color-abyss);
+}
+
+/* Inner Scrollable Canvas/Content Area */
+.viewport-hud-content {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  z-index: 10;
+  padding: 6.5rem 4rem 6.5rem 5.5rem;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .viewport-hud-content {
+    padding: 5.5rem 1.25rem 6rem 1.25rem;
+  }
+}
+
+/* Fixed HUD Frame Container (Clicks pass through to canvas) */
+.viewport-hud-frame {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* 1. TOP BAR */
+.hud-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2.5rem;
+  pointer-events: auto;
+  background: linear-gradient(180deg, rgba(2, 10, 25, 0.95) 0%, rgba(2, 10, 25, 0) 100%);
+}
+
+.hud-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  text-decoration: none;
+}
+
+.hud-logo-icon {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hud-brand-title {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.2rem;
+  letter-spacing: 0.22em;
+  color: var(--color-cyan-glow);
+  text-transform: uppercase;
+}
+
+.hud-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+@media (max-width: 900px) {
+  .hud-nav-links {
+    display: none;
+  }
+}
+
+.hud-nav-link {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.15em;
+  color: var(--color-cyan-muted);
+  text-transform: uppercase;
+  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.hud-nav-link:hover,
+.hud-nav-link.active {
+  color: var(--color-cyan-glow);
+  text-shadow: 0 0 8px rgba(213, 224, 255, 0.4);
+}
+
+.hud-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* 2. LEFT RAIL (Vertical Coordinates & Section Nav) */
+.hud-left-rail {
+  position: absolute;
+  top: 50%;
+  left: 2rem;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  pointer-events: auto;
+}
+
+@media (max-width: 900px) {
+  .hud-left-rail {
+    display: none;
+  }
+}
+
+.hud-rail-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  color: rgba(213, 224, 255, 0.35);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left;
+}
+
+.hud-rail-item:hover {
+  color: var(--color-cyan-muted);
+}
+
+.hud-rail-item.active {
+  color: var(--color-cyan-glow);
+}
+
+.hud-rail-bullet {
+  width: 6px;
+  height: 6px;
+  background-color: transparent;
+  border: 1px solid rgba(213, 224, 255, 0.3);
+  display: inline-block;
+  transition: all var(--transition-fast);
+}
+
+.hud-rail-item.active .hud-rail-bullet {
+  background-color: var(--color-cyan-glow);
+  border-color: var(--color-cyan-glow);
+  box-shadow: 0 0 6px var(--color-cyan-glow);
+}
+
+/* 3. BOTTOM BAR */
+.hud-bottom-bar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 1.5rem 2.5rem;
+  pointer-events: auto;
+  background: linear-gradient(0deg, rgba(2, 10, 25, 0.95) 0%, rgba(2, 10, 25, 0) 100%);
+}
+
+@media (max-width: 768px) {
+  .hud-bottom-bar {
+    padding: 1rem 1.25rem;
+  }
+}
+
+/* Scale & Distance Widget */
+.hud-scale-widget {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+}
+
+.hud-scale-readout {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  color: var(--color-cyan-muted);
+}
+
+.hud-scale-bracket {
+  width: 110px;
+  height: 6px;
+  border-bottom: 1px solid var(--color-cyan-border);
+  border-left: 1px solid var(--color-cyan-border);
+  border-right: 1px solid var(--color-cyan-border);
+  position: relative;
+}
+
+.hud-scale-bracket::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 6px;
+  width: 1px;
+  background: var(--color-cyan-border);
+}
+
+.hud-sound-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  color: var(--color-cyan-muted);
+  cursor: pointer;
+  background: none;
+  border: none;
+  margin-top: 0.4rem;
+  transition: color var(--transition-fast);
+}
+
+.hud-sound-toggle:hover {
+  color: var(--color-cyan-glow);
+}
+
+/* Center Action Pill */
+.hud-center-action {
+  align-self: center;
+}
+
+@media (max-width: 900px) {
+  .hud-center-action {
+    display: none;
+  }
+}
+
+/* Bottom Right Telemetry (Compass & Filters) */
+.hud-bottom-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* 4. Interactive Compass Rosette */
+.compass-rosette {
+  width: 96px;
+  height: 96px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  user-select: none;
+}
+
+.compass-rosette:active {
+  cursor: grabbing;
+}
+
+@media (max-width: 768px) {
+  .compass-rosette {
+    width: 72px;
+    height: 72px;
+  }
+}
+
+.compass-svg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: center;
+  transition: transform 0.1s linear;
+}
+
+.compass-center-readout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  font-family: var(--font-mono);
+  pointer-events: none;
+}
+
+.compass-bearing-value {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--color-cyan-glow);
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 6px rgba(213, 224, 255, 0.5);
+}
+
+.compass-cardinal-n {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--color-cyan-glow);
+  margin-bottom: -2px;
+}

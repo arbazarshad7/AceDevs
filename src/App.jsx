@@ -1,168 +1,187 @@
 import React, { useState } from 'react';
+import ViewportHud from './components/hud/ViewportHud';
 import BeveledBox from './components/hud/BeveledBox';
 import ChamferButton from './components/hud/ChamferButton';
 import HudBadge from './components/hud/HudBadge';
 import CornerBrackets from './components/hud/CornerBrackets';
-import { Terminal, Shield, Zap, Sparkles } from 'lucide-react';
+import { ArrowRight, Code, Database, Globe, Cpu, Github } from 'lucide-react';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('overview');
+  const [section, setSection] = useState('hero');
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      padding: '2rem',
-      position: 'relative'
-    }}>
+    <ViewportHud
+      activeSection={section}
+      onSectionSelect={setSection}
+      filterCount={0}
+      onOpenListClick={() => setSection('repos')}
+    >
+      {/* Central Interactive HUD Stage */}
       <div style={{
-        position: 'absolute',
-        top: '1.5rem',
-        left: '2rem',
-        fontFamily: 'var(--font-mono)',
-        fontSize: '0.75rem',
-        letterSpacing: '0.15em',
-        color: 'var(--color-cyan-muted)'
+        maxWidth: '1000px',
+        margin: '0 auto',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '75vh',
+        textAlign: 'center',
+        position: 'relative'
       }}>
-        [SYS: INITIALIZED // ACEDEVS HUD v1.0]
-      </div>
-
-      <BeveledBox
-        variant="glass"
-        cornerSize={16}
-        glow
-        style={{
-          maxWidth: '850px',
-          width: '100%',
-          padding: '2.5rem',
-        }}
-      >
-        <CornerBrackets />
-
+        {/* Monospace System Telemetry Header */}
         <div style={{
           display: 'flex',
-          justifyContent: 'space-between',
           alignItems: 'center',
-          marginBottom: '1.75rem',
-          borderBottom: '1px solid var(--color-cyan-hairline)',
-          paddingBottom: '1.25rem'
+          gap: '0.75rem',
+          marginBottom: '1.25rem'
         }}>
-          <div>
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.75rem',
-              marginBottom: '0.25rem'
+          <span className="hud-telemetry">SYS: ONLINE // SECTOR: GLOBAL</span>
+          <span style={{ color: 'var(--color-cyan-hairline)' }}>|</span>
+          <span className="hud-telemetry">COORDINATES: 19.0760° N, 72.8777° E</span>
+          <span style={{ color: 'var(--color-cyan-hairline)' }}>|</span>
+          <HudBadge label="v1.0" showDot active />
+        </div>
+
+        {/* Hero Beveled Presentation Card */}
+        <BeveledBox
+          variant="glass"
+          cornerSize={18}
+          glow
+          style={{
+            width: '100%',
+            padding: '3rem 2.5rem',
+            position: 'relative',
+            marginBottom: '2rem'
+          }}
+        >
+          <CornerBrackets />
+
+          <div style={{ marginBottom: '1rem' }}>
+            <span style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.8rem',
+              letterSpacing: '0.25em',
+              color: 'var(--color-cyan-bright)',
+              textTransform: 'uppercase'
             }}>
-              <h1 style={{
-                fontSize: '1.75rem',
-                fontWeight: 700,
-                letterSpacing: '0.12em',
-                textTransform: 'uppercase',
-                color: 'var(--color-cyan-glow)'
-              }}>
-                ACEDEVS // COLLECTIVE
-              </h1>
-              <HudBadge label="LIVE" showDot active />
-            </div>
-            <div className="hud-telemetry">
-              TEAM: ARBAZ ARSHAD & DEVESH DAS // HUD ENGINE v1.0
-            </div>
+              COLLECTIVE DEVELOPER PORTFOLIO
+            </span>
           </div>
 
-          <HudBadge label="DS-02 PRIMITIVES" count={2} active />
-        </div>
+          <h1 style={{
+            fontSize: 'clamp(2rem, 4.5vw, 3.4rem)',
+            fontWeight: 800,
+            letterSpacing: '0.08em',
+            lineHeight: 1.15,
+            textTransform: 'uppercase',
+            color: 'var(--color-cyan-glow)',
+            marginBottom: '1.5rem',
+            textShadow: '0 0 30px rgba(213, 224, 255, 0.25)'
+          }}>
+            WE ENGINEER DIGITAL
+            <br />
+            INFRASTRUCTURE
+          </h1>
 
-        <p style={{
-          fontSize: '0.95rem',
-          lineHeight: '1.7',
-          color: 'var(--color-cyan-muted)',
-          marginBottom: '2rem'
-        }}>
-          Tactical HUD UI Primitives verified. Angled 45° chamfered geometry, responsive SVG hairline perimeter borders, high-contrast inverted action buttons, and aerospace reticle brackets.
-        </p>
+          <p style={{
+            maxWidth: '680px',
+            margin: '0 auto 2.25rem auto',
+            fontSize: '1.05rem',
+            lineHeight: '1.7',
+            color: 'var(--color-cyan-muted)',
+            fontFamily: 'var(--font-heading)'
+          }}>
+            Unified technological showcase of <strong style={{ color: '#ffffff' }}>Arbaz Arshad</strong> and{' '}
+            <strong style={{ color: '#ffffff' }}>Devesh Das</strong>. Powered by procedural 3D graphics,
+            automated GitHub aggregation, an algorithmic Trie search engine, and an authenticated engineering blog.
+          </p>
 
-        {/* Buttons demonstration */}
-        <div style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: '1rem',
-          marginBottom: '2rem'
-        }}>
-          <ChamferButton
-            variant="inverted"
-            icon={<Zap size={15} />}
-            onClick={() => setActiveTab('action')}
-          >
-            Launch System
-          </ChamferButton>
+          {/* Action CTAs */}
+          <div style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: '1.25rem'
+          }}>
+            <ChamferButton
+              variant="inverted"
+              size="lg"
+              icon={<ArrowRight size={16} />}
+              onClick={() => setSection('showcase')}
+            >
+              EXPLORE SHOWCASE
+            </ChamferButton>
 
-          <ChamferButton
-            variant="primary"
-            icon={<Terminal size={15} />}
-            onClick={() => setActiveTab('terminal')}
-          >
-            View Telemetry
-          </ChamferButton>
+            <ChamferButton
+              variant="primary"
+              size="lg"
+              icon={<Github size={16} />}
+              onClick={() => setSection('repos')}
+            >
+              COLLECTIVE REPOS [00]
+            </ChamferButton>
+          </div>
+        </BeveledBox>
 
-          <ChamferButton
-            variant="ghost"
-            icon={<Shield size={15} />}
-            onClick={() => setActiveTab('security')}
-          >
-            Security Mesh [00]
-          </ChamferButton>
-        </div>
-
-        {/* Sub-grid of Beveled Boxes */}
+        {/* Phase 1 Verification Grid */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-          gap: '1.25rem'
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: '1.25rem',
+          width: '100%'
         }}>
-          <BeveledBox variant="faint" cornerSize={10} style={{ padding: '1.25rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
-              <span className="hud-telemetry">MODULE 01</span>
-              <HudBadge count={1} />
+          {/* Card 1: Team Synergy */}
+          <BeveledBox variant="faint" cornerSize={12} style={{ padding: '1.5rem', textAlign: 'left' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Cpu size={16} style={{ color: 'var(--color-cyan-bright)' }} />
+                <span className="hud-telemetry">CORE 01</span>
+              </div>
+              <HudBadge label="ARBAZ & DEVESH" active />
             </div>
-            <div style={{ fontWeight: 600, fontSize: '0.95rem', marginBottom: '0.25rem' }}>
-              Cut-Corner Geometry
-            </div>
-            <p style={{ fontSize: '0.8rem', color: 'var(--color-cyan-muted)', lineHeight: '1.5' }}>
-              SVG dynamic vector path with clip-path polygon integration.
+            <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--color-cyan-glow)' }}>
+              Dual Developer Synergy
+            </h3>
+            <p style={{ fontSize: '0.85rem', color: 'var(--color-cyan-muted)', lineHeight: '1.6' }}>
+              Full-stack architecture, distributed systems, and creative WebGL development connected to individual portfolios.
             </p>
           </BeveledBox>
 
-          <BeveledBox variant="faint" cornerSize={10} style={{ padding: '1.25rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
-              <span className="hud-telemetry">MODULE 02</span>
-              <HudBadge count={2} />
+          {/* Card 2: 3D WebGL Matrix */}
+          <BeveledBox variant="faint" cornerSize={12} style={{ padding: '1.5rem', textAlign: 'left' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Globe size={16} style={{ color: 'var(--color-cyan-bright)' }} />
+                <span className="hud-telemetry">CORE 02</span>
+              </div>
+              <HudBadge label="NEXT: PHASE 2" />
             </div>
-            <div style={{ fontWeight: 600, fontSize: '0.95rem', marginBottom: '0.25rem' }}>
-              Inverted Buttons
-            </div>
-            <p style={{ fontSize: '0.8rem', color: 'var(--color-cyan-muted)', lineHeight: '1.5' }}>
-              High-contrast ice cyan (#d5e0ff) buttons with deep navy typography.
+            <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--color-cyan-glow)' }}>
+              Cybernetic WebGL Node Mesh
+            </h3>
+            <p style={{ fontSize: '0.85rem', color: 'var(--color-cyan-muted)', lineHeight: '1.6' }}>
+              Procedural Three.js particle canvas with reactive vector splines inspired directly by the Hubtown topographical digital twin.
             </p>
           </BeveledBox>
 
-          <BeveledBox variant="solid-dark" cornerSize={10} style={{ padding: '1.25rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
-              <span className="hud-telemetry">STATUS</span>
-              <HudBadge label="OK" active />
+          {/* Card 3: Algorithmic Search */}
+          <BeveledBox variant="faint" cornerSize={12} style={{ padding: '1.5rem', textAlign: 'left' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Database size={16} style={{ color: 'var(--color-cyan-bright)' }} />
+                <span className="hud-telemetry">CORE 03</span>
+              </div>
+              <HudBadge label="IN-MEMORY TRIE" />
             </div>
-            <div style={{ fontWeight: 600, fontSize: '0.95rem', marginBottom: '0.25rem' }}>
-              Dual Typography
-            </div>
-            <p style={{ fontSize: '0.8rem', color: 'var(--color-cyan-muted)', lineHeight: '1.5' }}>
-              Space Grotesk headers with Space Mono telemetry brackets.
+            <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--color-cyan-glow)' }}>
+              Inverted Index Engine
+            </h3>
+            <p style={{ fontSize: '0.85rem', color: 'var(--color-cyan-muted)', lineHeight: '1.6' }}>
+              Sub-millisecond prefix matching and multi-tag filtering across projects, repositories, and technical articles.
             </p>
           </BeveledBox>
         </div>
-      </BeveledBox>
-    </div>
+      </div>
+    </ViewportHud>
   );
 }
