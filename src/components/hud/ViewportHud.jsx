@@ -21,9 +21,10 @@ export default function ViewportHud({
   bearing: controlledBearing,
   onBearingChange = null
 }) {
-  const [currentSection, setCurrentSection] = useState(activeSection);
+  const [internalSection, setInternalSection] = useState(activeSection);
   const [internalBearing, setInternalBearing] = useState(0);
 
+  const currentSection = activeSection !== undefined ? activeSection : internalSection;
   const activeBearing = controlledBearing !== undefined ? controlledBearing : internalBearing;
 
   const handleBearingChange = (newBearing) => {
@@ -40,7 +41,7 @@ export default function ViewportHud({
   ];
 
   const handleSectionClick = (id) => {
-    setCurrentSection(id);
+    setInternalSection(id);
     if (onSectionSelect) onSectionSelect(id);
   };
 
@@ -82,6 +83,7 @@ export default function ViewportHud({
             {navSections.slice(1).map((sec) => (
               <button
                 key={sec.id}
+                id={`nav-${sec.id}`}
                 type="button"
                 className={`hud-nav-link ${currentSection === sec.id ? 'active' : ''}`}
                 onClick={() => handleSectionClick(sec.id)}
@@ -123,6 +125,7 @@ export default function ViewportHud({
           {navSections.map((sec) => (
             <button
               key={sec.id}
+              id={`rail-${sec.id}`}
               type="button"
               className={`hud-rail-item ${currentSection === sec.id ? 'active' : ''}`}
               onClick={() => handleSectionClick(sec.id)}

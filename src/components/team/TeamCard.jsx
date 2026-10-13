@@ -119,6 +119,7 @@ export default function TeamCard({
         <div className="team-card-actions">
           {/* Main Portfolio Cross-Link */}
           <a
+            id={`portfolio-link-${member.id}`}
             href={member.links.portfolio}
             target="_blank"
             rel="noopener noreferrer"
@@ -135,6 +136,7 @@ export default function TeamCard({
 
           {/* GitHub Profile Link */}
           <a
+            id={`github-link-${member.id}`}
             href={member.links.github}
             target="_blank"
             rel="noopener noreferrer"
