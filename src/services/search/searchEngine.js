@@ -1,6 +1,7 @@
 import { InvertedIndex } from './InvertedIndex.js';
 import { MOCK_REPOSITORIES } from '../../data/mockRepos.js';
 import { TEAM_MEMBERS } from '../../data/teamData.js';
+import { BLOG_POSTS } from '../../data/blogPosts.js';
 
 /**
  * System sectors and architecture components for global search
@@ -114,6 +115,9 @@ class SearchEngine {
       this.index.addDocument(sec);
     });
 
+    // 4. Index Engineering Blog Articles
+    this.indexBlogPosts(BLOG_POSTS);
+
     this.initialized = true;
   }
 
@@ -139,6 +143,28 @@ class SearchEngine {
         htmlUrl: repo.htmlUrl,
         homepage: repo.homepage,
         action: { section: 'repos', repoName: repo.name, url: repo.htmlUrl }
+      });
+    });
+  }
+
+  /**
+   * Indexes technical engineering blog articles
+   */
+  indexBlogPosts(posts = BLOG_POSTS) {
+    if (!Array.isArray(posts)) return;
+    posts.forEach((post) => {
+      this.index.addDocument({
+        id: `post-${post.id}`,
+        category: 'blog',
+        type: 'ARTICLE',
+        title: post.title,
+        name: post.title,
+        description: post.excerpt,
+        topics: post.tags || [],
+        author: post.author,
+        readingTime: `${post.readingTimeMinutes} MIN`,
+        owner: { id: post.author.id, code: post.author.code, name: post.author.name },
+        action: { section: 'blog', articleId: post.id }
       });
     });
   }
