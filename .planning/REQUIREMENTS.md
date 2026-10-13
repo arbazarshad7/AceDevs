@@ -44,8 +44,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Engineering Blog Engine
 
-- [ ] **BLOG-01**: Blog listing page displaying published technical posts with author badges, tags, and publication timestamps.
-- [ ] **BLOG-02**: Blog post detail view with Markdown rendering, syntax highlighted code blocks, and estimated reading time.
+- [x] **BLOG-01**: Blog listing page displaying published technical posts with author badges, tags, and publication timestamps.
+- [x] **BLOG-02**: Blog post detail view with Markdown rendering, syntax highlighted code blocks, and estimated reading time.
 
 ### Developer Admin Dashboard
 
@@ -96,8 +96,8 @@ Which phases cover which requirements.
 | AUTH-01 | Phase 6 | Complete |
 | AUTH-02 | Phase 6 | Complete |
 | AUTH-03 | Phase 6 | Complete |
-| BLOG-01 | Phase 7 | Pending |
-| BLOG-02 | Phase 7 | Pending |
+| BLOG-01 | Phase 7 | Complete |
+| BLOG-02 | Phase 7 | Complete |
 | ADM-01 | Phase 8 | Pending |
 | ADM-02 | Phase 8 | Pending |
 | ADM-03 | Phase 8 | Pending |
