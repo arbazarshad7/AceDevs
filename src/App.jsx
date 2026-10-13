@@ -8,10 +8,13 @@ import HudBadge from './components/hud/HudBadge';
 import CornerBrackets from './components/hud/CornerBrackets';
 import TeamShowcase from './components/team/TeamShowcase';
 import CollectiveRepos from './components/repos/CollectiveRepos';
+import BlogList from './components/blog/BlogList';
+import BlogArticle from './components/blog/BlogArticle';
+import { BLOG_POSTS } from './data/blogPosts';
 import SearchModal from './components/search/SearchModal';
 import AuthModal from './components/auth/AuthModal';
 import { AuthProvider, useAuth } from './context/AuthContext';
-import { ArrowRight, Code, Database, Globe, Cpu, Github, X, Compass, Activity, Users } from 'lucide-react';
+import { ArrowRight, Code, Database, Globe, Cpu, Github, X, Compass, Activity, Users, BookOpen } from 'lucide-react';
 
 function PortfolioCockpit() {
   const { user, isDeveloper, developerProfile, signOut } = useAuth();
@@ -20,6 +23,7 @@ function PortfolioCockpit() {
   const [bearing, setBearing] = useState(0);
   const [focusedNode, setFocusedNode] = useState(null);
   const [focusedMemberId, setFocusedMemberId] = useState(null);
+  const [selectedArticleId, setSelectedArticleId] = useState(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
@@ -50,6 +54,9 @@ function PortfolioCockpit() {
     if (newSection !== 'team') {
       setFocusedMemberId(null);
     }
+    if (newSection !== 'blog') {
+      setSelectedArticleId(null);
+    }
   };
 
   const handleSearchResultSelect = (item) => {
@@ -62,6 +69,10 @@ function PortfolioCockpit() {
       setSection('team');
     } else if (item.category === 'repos' || item.type === 'REPOSITORY') {
       setSection('repos');
+    } else if (item.category === 'blog' || item.type === 'ARTICLE') {
+      const articleId = item.action?.articleId || (item.id && item.id.replace('post-', ''));
+      setSelectedArticleId(articleId);
+      setSection('blog');
     } else if (item.action?.section) {
       setSection(item.action.section);
     }
@@ -103,6 +114,19 @@ function PortfolioCockpit() {
           <CollectiveRepos
             onBackToHero={() => handleSectionSelect('hero')}
           />
+        ) : section === 'blog' ? (
+          selectedArticleId ? (
+            <BlogArticle
+              post={BLOG_POSTS.find((p) => p.id === selectedArticleId)}
+              onBackToList={() => setSelectedArticleId(null)}
+            />
+          ) : (
+            <BlogList
+              posts={BLOG_POSTS}
+              onSelectArticle={(id) => setSelectedArticleId(id)}
+              onBackToHero={() => handleSectionSelect('hero')}
+            />
+          )
         ) : (
           /* Central Interactive HUD Hero Stage */
           <div style={{
