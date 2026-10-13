@@ -7,6 +7,7 @@ import ChamferButton from './components/hud/ChamferButton';
 import HudBadge from './components/hud/HudBadge';
 import CornerBrackets from './components/hud/CornerBrackets';
 import TeamShowcase from './components/team/TeamShowcase';
+import CollectiveRepos from './components/repos/CollectiveRepos';
 import { ArrowRight, Code, Database, Globe, Cpu, Github, X, Compass, Activity, Users } from 'lucide-react';
 
 export default function App() {
@@ -57,6 +58,10 @@ export default function App() {
         {section === 'team' ? (
           <TeamShowcase
             focusedMemberId={focusedMemberId}
+            onBackToHero={() => handleSectionSelect('hero')}
+          />
+        ) : section === 'repos' ? (
+          <CollectiveRepos
             onBackToHero={() => handleSectionSelect('hero')}
           />
         ) : (
@@ -252,6 +257,7 @@ export default function App() {
                 </ChamferButton>
 
                 <ChamferButton
+                  id="btn-collective-repos"
                   variant="primary"
                   size="lg"
                   icon={<Github size={16} />}
