@@ -48,7 +48,7 @@ export default function CyberCanvas({
       stencil: false,
       depth: true
     });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
     renderer.setSize(width, height);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.15;
@@ -71,9 +71,12 @@ export default function CyberCanvas({
     const registerTick = (cb) => tickCallbacks.add(cb);
     const unregisterTick = (cb) => tickCallbacks.delete(cb);
 
-    // 5. Main Render Loop
+    // 5. Main Render Loop with Visibility Optimization
     const clock = new THREE.Clock();
+    let isPaused = false;
+
     const animate = () => {
+      if (isPaused) return;
       animFrameId.current = requestAnimationFrame(animate);
       const delta = clock.getDelta();
       const elapsedTime = clock.getElapsedTime();
@@ -84,6 +87,23 @@ export default function CyberCanvas({
       renderer.render(scene, camera);
     };
     animate();
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        isPaused = true;
+        if (animFrameId.current) {
+          cancelAnimationFrame(animFrameId.current);
+          animFrameId.current = null;
+        }
+      } else {
+        if (isPaused) {
+          isPaused = false;
+          clock.getDelta(); // flush delta so clock doesn't produce jump
+          animate();
+        }
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     // 6. Resize Observer
     const handleResize = () => {
@@ -112,6 +132,7 @@ export default function CyberCanvas({
 
     // Cleanup on unmount
     return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('resize', handleResize);
       if (animFrameId.current) {
         cancelAnimationFrame(animFrameId.current);

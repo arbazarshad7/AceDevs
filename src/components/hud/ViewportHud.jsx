@@ -4,7 +4,7 @@ import HudBadge from './HudBadge';
 import ScaleIndicator from './ScaleIndicator';
 import CompassRosette from './CompassRosette';
 import { useSound } from '../../context/SoundContext';
-import { Search, LogIn, LogOut, Menu, Layers, Shield } from 'lucide-react';
+import { Search, LogIn, LogOut, Menu, Layers, Shield, X } from 'lucide-react';
 import './viewport.css';
 
 /**
@@ -29,6 +29,7 @@ export default function ViewportHud({
   const { playClick, playHover, playModalOpen } = useSound();
   const [internalSection, setInternalSection] = useState(activeSection);
   const [internalBearing, setInternalBearing] = useState(0);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const currentSection = activeSection !== undefined ? activeSection : internalSection;
   const activeBearing = controlledBearing !== undefined ? controlledBearing : internalBearing;
@@ -187,6 +188,18 @@ export default function ViewportHud({
                 LOGIN [00]
               </ChamferButton>
             )}
+
+            {/* Mobile Hamburger Toggle */}
+            <button
+              id="hud-mobile-menu-btn"
+              type="button"
+              className="hud-mobile-toggle-btn"
+              onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+              title="Toggle Mobile HUD Menu"
+              aria-label="Toggle navigation menu"
+            >
+              {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
+            </button>
           </div>
         </header>
 
@@ -243,6 +256,61 @@ export default function ViewportHud({
             />
           </div>
         </footer>
+
+        {/* 4. Mobile Navigation Drawer Overlay */}
+        {isMobileMenuOpen && (
+          <div id="hud-mobile-drawer" className="hud-mobile-drawer">
+            <div className="hud-mobile-drawer-inner">
+              <div className="hud-mobile-drawer-header">
+                <span className="hud-telemetry">ACEDEVS // MOBILE MATRIX</span>
+                <button
+                  id="mobile-drawer-close"
+                  type="button"
+                  className="hud-mobile-close-btn"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  ✕ ESC
+                </button>
+              </div>
+
+              <div className="hud-mobile-drawer-links">
+                {navSections.map((sec) => (
+                  <button
+                    key={sec.id}
+                    id={`mobile-nav-${sec.id}`}
+                    type="button"
+                    className={`hud-mobile-nav-link ${currentSection === sec.id ? 'active' : ''}`}
+                    onClick={() => {
+                      handleSectionClick(sec.id);
+                      setIsMobileMenuOpen(false);
+                    }}
+                  >
+                    <span>{sec.label}</span>
+                    <span style={{ fontSize: '0.72rem', opacity: 0.6 }}>[{sec.code}]</span>
+                  </button>
+                ))}
+              </div>
+
+              <div className="hud-mobile-drawer-footer">
+                {onSearchClick && (
+                  <ChamferButton
+                    id="mobile-search-btn"
+                    variant="faint"
+                    size="sm"
+                    icon={<Search size={14} />}
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                      handleSearchTrigger();
+                    }}
+                    style={{ width: '100%', justifyContent: 'center' }}
+                  >
+                    SPOTLIGHT SEARCH [⌘K]
+                  </ChamferButton>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
