@@ -38,9 +38,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Authentication (Supabase)
 
-- [ ] **AUTH-01**: Supabase client initialized with environment variables, auth session persistence, and state listener.
-- [ ] **AUTH-02**: Google OAuth sign-in flow for seamless developer authentication.
-- [ ] **AUTH-03**: Email and password sign-in flow with validation for direct developer access.
+- [x] **AUTH-01**: Supabase client initialized with environment variables, auth session persistence, and state listener.
+- [x] **AUTH-02**: Google OAuth sign-in flow for seamless developer authentication.
+- [x] **AUTH-03**: Email and password sign-in flow with validation for direct developer access.
 
 ### Engineering Blog Engine
 
@@ -93,9 +93,9 @@ Which phases cover which requirements.
 | SRCH-01 | Phase 5 | Complete |
 | SRCH-02 | Phase 5 | Complete |
 | SRCH-03 | Phase 5 | Complete |
-| AUTH-01 | Phase 6 | Pending |
-| AUTH-02 | Phase 6 | Pending |
-| AUTH-03 | Phase 6 | Pending |
+| AUTH-01 | Phase 6 | Complete |
+| AUTH-02 | Phase 6 | Complete |
+| AUTH-03 | Phase 6 | Complete |
 | BLOG-01 | Phase 7 | Pending |
 | BLOG-02 | Phase 7 | Pending |
 | ADM-01 | Phase 8 | Pending |
