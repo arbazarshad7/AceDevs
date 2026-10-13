@@ -15,9 +15,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### 3D WebGL Hero Experience
 
-- [ ] **3D-01**: Three.js canvas setup with responsive viewport resize, antialiasing, and camera controls.
-- [ ] **3D-02**: Interactive 3D cybernetic node network with pulsating vector spline lines and node clustering.
-- [ ] **3D-03**: Mouse-reactive particle field with bloom and lens distortion post-processing passes.
+- [x] **3D-01**: Three.js canvas setup with responsive viewport resize, antialiasing, and camera controls.
+- [x] **3D-02**: Interactive 3D cybernetic node network with pulsating vector spline lines and node clustering.
+- [x] **3D-03**: Mouse-reactive particle field with bloom and lens distortion post-processing passes.
 
 ### Team Showcase
 
