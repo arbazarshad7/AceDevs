@@ -11,6 +11,9 @@ import CollectiveRepos from './components/repos/CollectiveRepos';
 import BlogList from './components/blog/BlogList';
 import BlogArticle from './components/blog/BlogArticle';
 import { BLOG_POSTS } from './data/blogPosts';
+import { blogService } from './services/blogService';
+import AdminGuard from './components/admin/AdminGuard';
+import AdminDashboard from './components/admin/AdminDashboard';
 import SearchModal from './components/search/SearchModal';
 import AuthModal from './components/auth/AuthModal';
 import { AuthProvider, useAuth } from './context/AuthContext';
@@ -19,13 +22,22 @@ import { ArrowRight, Code, Database, Globe, Cpu, Github, X, Compass, Activity, U
 function PortfolioCockpit() {
   const { user, isDeveloper, developerProfile, signOut } = useAuth();
 
-  const [section, setSection] = useState('hero'); // 'hero' | 'team' | 'showcase' | 'repos' | 'blog'
+  const [section, setSection] = useState('hero'); // 'hero' | 'team' | 'showcase' | 'repos' | 'blog' | 'admin'
   const [bearing, setBearing] = useState(0);
   const [focusedNode, setFocusedNode] = useState(null);
   const [focusedMemberId, setFocusedMemberId] = useState(null);
   const [selectedArticleId, setSelectedArticleId] = useState(null);
+  const [blogPosts, setBlogPosts] = useState([]);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+
+  // Subscribe to live blog updates from blogService
+  useEffect(() => {
+    const unsubscribe = blogService.subscribe((posts) => {
+      setBlogPosts(posts.filter((p) => p.published !== false));
+    });
+    return () => unsubscribe();
+  }, []);
 
   const formattedBearing = `${String(bearing).padStart(3, '0')}°`;
 
@@ -73,6 +85,8 @@ function PortfolioCockpit() {
       const articleId = item.action?.articleId || (item.id && item.id.replace('post-', ''));
       setSelectedArticleId(articleId);
       setSection('blog');
+    } else if (item.category === 'admin' || item.action?.section === 'admin') {
+      setSection('admin');
     } else if (item.action?.section) {
       setSection(item.action.section);
     }
@@ -100,12 +114,22 @@ function PortfolioCockpit() {
         onSearchClick={() => setIsSearchOpen(true)}
         onOpenListClick={() => handleSectionSelect('repos')}
         user={user}
+        isDeveloper={isDeveloper}
         developerProfile={developerProfile}
         onLoginClick={() => setIsAuthModalOpen(true)}
         onLogoutClick={signOut}
       >
         {/* Dynamic Section Stage Content */}
-        {section === 'team' ? (
+        {section === 'admin' ? (
+          <AdminGuard
+            onOpenAuthModal={() => setIsAuthModalOpen(true)}
+            onBackToHero={() => handleSectionSelect('hero')}
+          >
+            <AdminDashboard
+              onBackToHero={() => handleSectionSelect('hero')}
+            />
+          </AdminGuard>
+        ) : section === 'team' ? (
           <TeamShowcase
             focusedMemberId={focusedMemberId}
             onBackToHero={() => handleSectionSelect('hero')}
@@ -117,12 +141,12 @@ function PortfolioCockpit() {
         ) : section === 'blog' ? (
           selectedArticleId ? (
             <BlogArticle
-              post={BLOG_POSTS.find((p) => p.id === selectedArticleId)}
+              post={(blogPosts.length > 0 ? blogPosts : BLOG_POSTS).find((p) => p.id === selectedArticleId)}
               onBackToList={() => setSelectedArticleId(null)}
             />
           ) : (
             <BlogList
-              posts={BLOG_POSTS}
+              posts={blogPosts.length > 0 ? blogPosts : BLOG_POSTS}
               onSelectArticle={(id) => setSelectedArticleId(id)}
               onBackToHero={() => handleSectionSelect('hero')}
             />

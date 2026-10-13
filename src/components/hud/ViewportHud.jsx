@@ -3,7 +3,7 @@ import ChamferButton from './ChamferButton';
 import HudBadge from './HudBadge';
 import ScaleIndicator from './ScaleIndicator';
 import CompassRosette from './CompassRosette';
-import { Search, LogIn, LogOut, Menu, Layers } from 'lucide-react';
+import { Search, LogIn, LogOut, Menu, Layers, Shield } from 'lucide-react';
 import './viewport.css';
 
 /**
@@ -17,6 +17,7 @@ export default function ViewportHud({
   onLoginClick = null,
   onLogoutClick = null,
   user = null,
+  isDeveloper = false,
   developerProfile = null,
   onSearchClick = null,
   onOpenListClick = null,
@@ -41,6 +42,7 @@ export default function ViewportHud({
     { id: 'team', label: 'TEAM', code: '03' },
     { id: 'repos', label: 'REPOSITORIES', code: '04' },
     { id: 'blog', label: 'BLOG', code: '05' },
+    ...(isDeveloper || currentSection === 'admin' ? [{ id: 'admin', label: 'ADMIN', code: '08' }] : [])
   ];
 
   const handleSectionClick = (id) => {
@@ -116,6 +118,19 @@ export default function ViewportHud({
 
             {user ? (
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                {isDeveloper && (
+                  <ChamferButton
+                    id="nav-admin-btn"
+                    size="sm"
+                    variant={currentSection === 'admin' ? 'inverted' : 'faint'}
+                    icon={<Shield size={12} />}
+                    onClick={() => handleSectionClick('admin')}
+                    style={{ padding: '0.35rem 0.55rem', fontSize: '0.68rem' }}
+                  >
+                    ADMIN [08]
+                  </ChamferButton>
+                )}
+
                 <div
                   id="hud-user-profile-badge"
                   style={{
