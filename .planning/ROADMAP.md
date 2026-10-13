@@ -100,11 +100,12 @@ AceDevs is delivered across 9 focused vertical slices, taking the project from f
 1. Blog listing displays published articles with author badges, tags, and read times.
 2. Article detail page renders Markdown with syntax-highlighted code blocks.
 
-### Phase 8: Protected Developer Admin Dashboard
+### Phase 8: Protected Developer Admin Dashboard [COMPLETED]
 **Goal:** Authenticated admin panel for blog CRUD management and manual GitHub sync.  
 **Mode:** mvp  
 **UI hint:** yes  
 **Requirements**: ADM-01, ADM-02, ADM-03  
+**Status**: Complete (Verified 2026-10-14)  
 **Success Criteria**:
 1. Route guards redirect unauthenticated users away from `/admin`.
 2. Authenticated developers can create, edit, delete, and publish blog articles in Supabase.
