@@ -8,7 +8,7 @@
   min-height: 100vh;
   width: 100vw;
   overflow-x: hidden;
-  background-color: var(--color-abyss);
+  background-color: transparent;
 }
 
 /* Inner Scrollable Canvas/Content Area */
@@ -19,6 +19,11 @@
   z-index: 10;
   padding: 6.5rem 4rem 6.5rem 5.5rem;
   box-sizing: border-box;
+  pointer-events: none;
+}
+
+.viewport-hud-content > * {
+  pointer-events: auto;
 }
 
 @media (max-width: 768px) {

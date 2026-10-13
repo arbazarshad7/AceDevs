@@ -17,10 +17,19 @@ export default function ViewportHud({
   onLoginClick = null,
   onSearchClick = null,
   onOpenListClick = null,
-  filterCount = 0
+  filterCount = 0,
+  bearing: controlledBearing,
+  onBearingChange = null
 }) {
   const [currentSection, setCurrentSection] = useState(activeSection);
-  const [bearing, setBearing] = useState(0);
+  const [internalBearing, setInternalBearing] = useState(0);
+
+  const activeBearing = controlledBearing !== undefined ? controlledBearing : internalBearing;
+
+  const handleBearingChange = (newBearing) => {
+    setInternalBearing(newBearing);
+    if (onBearingChange) onBearingChange(newBearing);
+  };
 
   const navSections = [
     { id: 'hero', label: 'HERO', code: '01' },
@@ -156,8 +165,8 @@ export default function ViewportHud({
             </button>
 
             <CompassRosette
-              initialBearing={bearing}
-              onChange={setBearing}
+              bearing={activeBearing}
+              onChange={handleBearingChange}
             />
           </div>
         </footer>

@@ -1,6 +1,12 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, createContext, useContext } from 'react';
 import * as THREE from 'three';
 import './canvas.css';
+
+export const CyberCanvasContext = createContext(null);
+
+export function useCyberCanvas() {
+  return useContext(CyberCanvasContext);
+}
 
 /**
  * CyberCanvas: High-performance Three.js WebGL canvas container with
@@ -119,10 +125,12 @@ export default function CyberCanvas({
   }, []);
 
   return (
-    <div ref={mountRef} className={`cyber-canvas-container ${className}`} style={style}>
-      <div className="cyber-canvas-vignette" />
-      <div className="cyber-canvas-scanlines" />
-      {context && typeof children === 'function' && children(context)}
-    </div>
+    <CyberCanvasContext.Provider value={context}>
+      <div ref={mountRef} className={`cyber-canvas-container ${className}`} style={style}>
+        <div className="cyber-canvas-vignette" />
+        <div className="cyber-canvas-scanlines" />
+        {context && (typeof children === 'function' ? children(context) : children)}
+      </div>
+    </CyberCanvasContext.Provider>
   );
 }

@@ -6,16 +6,21 @@ import './viewport.css';
  * inspired directly by Hubtown's interactive camera navigation rosette.
  */
 export default function CompassRosette({
+  bearing: controlledBearing,
   initialBearing = 0,
   onChange = null,
   interactive = true,
   className = '',
   style = {}
 }) {
-  const [bearing, setBearing] = useState(initialBearing);
+  const [internalBearing, setInternalBearing] = useState(
+    controlledBearing !== undefined ? controlledBearing : initialBearing
+  );
   const isDragging = useRef(false);
   const lastAngle = useRef(0);
   const rosetteRef = useRef(null);
+
+  const activeBearing = controlledBearing !== undefined ? controlledBearing : internalBearing;
 
   const calculateAngle = (clientX, clientY) => {
     if (!rosetteRef.current) return 0;
@@ -33,14 +38,14 @@ export default function CompassRosette({
     isDragging.current = true;
     const newAngle = calculateAngle(e.clientX, e.clientY);
     lastAngle.current = newAngle;
-    setBearing(newAngle);
+    setInternalBearing(newAngle);
     if (onChange) onChange(newAngle);
   };
 
   const handlePointerMove = (e) => {
     if (!isDragging.current || !interactive) return;
     const newAngle = calculateAngle(e.clientX, e.clientY);
-    setBearing(newAngle);
+    setInternalBearing(newAngle);
     if (onChange) onChange(newAngle);
   };
 
@@ -58,11 +63,11 @@ export default function CompassRosette({
   }, []);
 
   const handleReset = () => {
-    setBearing(0);
+    setInternalBearing(0);
     if (onChange) onChange(0);
   };
 
-  const formattedBearing = `${String(bearing).padStart(3, '0')}°`;
+  const formattedBearing = `${String(activeBearing).padStart(3, '0')}°`;
 
   return (
     <div
@@ -77,7 +82,7 @@ export default function CompassRosette({
       <svg
         className="compass-svg"
         viewBox="0 0 100 100"
-        style={{ transform: `rotate(${-bearing}deg)` }}
+        style={{ transform: `rotate(${-activeBearing}deg)` }}
       >
         {/* Outer Circular Rings */}
         <circle cx="50" cy="50" r="46" fill="none" stroke="rgba(213, 224, 255, 0.15)" strokeWidth="1" />
