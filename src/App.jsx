@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CyberCanvas from './components/canvas/CyberCanvas';
 import CyberNodeNetwork from './components/canvas/CyberNodeNetwork';
 import ViewportHud from './components/hud/ViewportHud';
@@ -8,6 +8,7 @@ import HudBadge from './components/hud/HudBadge';
 import CornerBrackets from './components/hud/CornerBrackets';
 import TeamShowcase from './components/team/TeamShowcase';
 import CollectiveRepos from './components/repos/CollectiveRepos';
+import SearchModal from './components/search/SearchModal';
 import { ArrowRight, Code, Database, Globe, Cpu, Github, X, Compass, Activity, Users } from 'lucide-react';
 
 export default function App() {
@@ -15,8 +16,21 @@ export default function App() {
   const [bearing, setBearing] = useState(0);
   const [focusedNode, setFocusedNode] = useState(null);
   const [focusedMemberId, setFocusedMemberId] = useState(null);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const formattedBearing = `${String(bearing).padStart(3, '0')}°`;
+
+  // Global Cmd+K / Ctrl+K keyboard shortcut to toggle search modal
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setIsSearchOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const handleNodeSelect = (node) => {
     setFocusedNode(node);
@@ -30,6 +44,21 @@ export default function App() {
     setSection(newSection);
     if (newSection !== 'team') {
       setFocusedMemberId(null);
+    }
+  };
+
+  const handleSearchResultSelect = (item) => {
+    setIsSearchOpen(false);
+    if (!item) return;
+
+    if (item.category === 'team' || item.type === 'DEVELOPER') {
+      const memberId = item.action?.memberId || item.owner?.id || (item.id && item.id.replace('dev-', ''));
+      setFocusedMemberId(memberId);
+      setSection('team');
+    } else if (item.category === 'repos' || item.type === 'REPOSITORY') {
+      setSection('repos');
+    } else if (item.action?.section) {
+      setSection(item.action.section);
     }
   };
 
@@ -52,6 +81,7 @@ export default function App() {
         bearing={bearing}
         onBearingChange={setBearing}
         filterCount={0}
+        onSearchClick={() => setIsSearchOpen(true)}
         onOpenListClick={() => handleSectionSelect('repos')}
       >
         {/* Dynamic Section Stage Content */}
@@ -336,25 +366,49 @@ export default function App() {
               </BeveledBox>
 
               {/* Card 3: Algorithmic Search */}
-              <BeveledBox variant="faint" cornerSize={12} style={{ padding: '1.5rem', textAlign: 'left' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <Database size={16} style={{ color: 'var(--color-cyan-bright)' }} />
-                    <span className="hud-telemetry">CORE 03</span>
+              <div
+                id="card-algorithmic-search"
+                onClick={() => setIsSearchOpen(true)}
+                style={{ cursor: 'pointer', textAlign: 'left' }}
+                title="Click or press Cmd+K to launch Trie Search"
+              >
+                <BeveledBox variant="faint" cornerSize={12} glow style={{ padding: '1.5rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <Database size={16} style={{ color: 'var(--color-cyan-bright)' }} />
+                      <span className="hud-telemetry">CORE 03</span>
+                    </div>
+                    <HudBadge label="IN-MEMORY TRIE" active />
                   </div>
-                  <HudBadge label="IN-MEMORY TRIE" />
-                </div>
-                <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--color-cyan-glow)' }}>
-                  Inverted Index Engine
-                </h3>
-                <p style={{ fontSize: '0.85rem', color: 'var(--color-cyan-muted)', lineHeight: '1.6' }}>
-                  Sub-millisecond prefix matching and multi-tag filtering across projects, repositories, and technical articles.
-                </p>
-              </BeveledBox>
+                  <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--color-cyan-glow)' }}>
+                    Inverted Index Engine
+                  </h3>
+                  <p style={{ fontSize: '0.85rem', color: 'var(--color-cyan-muted)', lineHeight: '1.6', marginBottom: '0.75rem' }}>
+                    Sub-millisecond prefix matching and multi-tag filtering across projects, repositories, and technical articles.
+                  </p>
+                  <span style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.72rem',
+                    color: 'var(--color-cyan-bright)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.35rem'
+                  }}>
+                    LAUNCH SEARCH [⌘K] <ArrowRight size={12} />
+                  </span>
+                </BeveledBox>
+              </div>
             </div>
           </div>
         )}
       </ViewportHud>
+
+      {/* 3. Tactical HUD Spotlight Search Modal */}
+      <SearchModal
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+        onSelectResult={handleSearchResultSelect}
+      />
     </div>
   );
 }

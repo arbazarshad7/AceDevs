@@ -98,14 +98,16 @@ export default function ViewportHud({
           <div className="hud-top-actions">
             {onSearchClick && (
               <button
+                id="nav-search-btn"
                 type="button"
                 className="hud-nav-link"
                 onClick={onSearchClick}
-                title="Search (Cmd+K)"
-                style={{ padding: '0.4rem 0.6rem' }}
+                title="Search (Cmd+K / Ctrl+K)"
+                style={{ padding: '0.4rem 0.6rem', display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}
               >
                 <Search size={14} />
                 <span>SEARCH</span>
+                <span style={{ fontSize: '0.62rem', opacity: 0.65 }}>[⌘K]</span>
               </button>
             )}
 
