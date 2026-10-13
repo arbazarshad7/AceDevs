@@ -17,6 +17,7 @@ import AdminDashboard from './components/admin/AdminDashboard';
 import SearchModal from './components/search/SearchModal';
 import AuthModal from './components/auth/AuthModal';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { SoundProvider, useSound } from './context/SoundContext';
 import { ArrowRight, Code, Database, Globe, Cpu, Github, X, Compass, Activity, Users, BookOpen } from 'lucide-react';
 
 function PortfolioCockpit() {
@@ -479,7 +480,9 @@ function PortfolioCockpit() {
 export default function App() {
   return (
     <AuthProvider>
-      <PortfolioCockpit />
+      <SoundProvider>
+        <PortfolioCockpit />
+      </SoundProvider>
     </AuthProvider>
   );
 }

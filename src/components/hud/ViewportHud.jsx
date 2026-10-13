@@ -3,6 +3,7 @@ import ChamferButton from './ChamferButton';
 import HudBadge from './HudBadge';
 import ScaleIndicator from './ScaleIndicator';
 import CompassRosette from './CompassRosette';
+import { useSound } from '../../context/SoundContext';
 import { Search, LogIn, LogOut, Menu, Layers, Shield } from 'lucide-react';
 import './viewport.css';
 
@@ -25,6 +26,7 @@ export default function ViewportHud({
   bearing: controlledBearing,
   onBearingChange = null
 }) {
+  const { playClick, playHover, playModalOpen } = useSound();
   const [internalSection, setInternalSection] = useState(activeSection);
   const [internalBearing, setInternalBearing] = useState(0);
 
@@ -46,8 +48,14 @@ export default function ViewportHud({
   ];
 
   const handleSectionClick = (id) => {
+    playClick();
     setInternalSection(id);
     if (onSectionSelect) onSectionSelect(id);
+  };
+
+  const handleSearchTrigger = () => {
+    playModalOpen();
+    if (onSearchClick) onSearchClick();
   };
 
   return (
@@ -92,6 +100,7 @@ export default function ViewportHud({
                 type="button"
                 className={`hud-nav-link ${currentSection === sec.id ? 'active' : ''}`}
                 onClick={() => handleSectionClick(sec.id)}
+                onMouseEnter={playHover}
               >
                 <span>{sec.label}</span>
                 <span style={{ fontSize: '0.65rem', opacity: 0.6 }}>[{sec.code}]</span>
@@ -106,7 +115,8 @@ export default function ViewportHud({
                 id="nav-search-btn"
                 type="button"
                 className="hud-nav-link"
-                onClick={onSearchClick}
+                onClick={handleSearchTrigger}
+                onMouseEnter={playHover}
                 title="Search (Cmd+K / Ctrl+K)"
                 style={{ padding: '0.4rem 0.6rem', display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}
               >

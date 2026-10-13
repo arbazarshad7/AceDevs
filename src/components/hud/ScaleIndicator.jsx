@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Volume2, VolumeX } from 'lucide-react';
+import { useSound } from '../../context/SoundContext';
 import './viewport.css';
 
 /**
@@ -9,17 +10,15 @@ import './viewport.css';
 export default function ScaleIndicator({
   zoom = '1.0X',
   distance = '500M',
-  initialMuted = true,
   onToggleSound = null,
   className = '',
   style = {}
 }) {
-  const [isMuted, setIsMuted] = useState(initialMuted);
+  const { soundEnabled, toggleSound } = useSound();
 
   const handleToggle = () => {
-    const nextState = !isMuted;
-    setIsMuted(nextState);
-    if (onToggleSound) onToggleSound(!nextState);
+    toggleSound();
+    if (onToggleSound) onToggleSound(!soundEnabled);
   };
 
   return (
@@ -32,13 +31,20 @@ export default function ScaleIndicator({
       <div className="hud-scale-bracket" />
 
       <button
+        id="hud-sound-toggle"
         type="button"
         className="hud-sound-toggle"
         onClick={handleToggle}
         title="Toggle audio soundscape"
       >
-        {isMuted ? <VolumeX size={13} /> : <Volume2 size={13} style={{ color: 'var(--color-cyan-glow)' }} />}
-        <span>{isMuted ? 'SOUND OFF' : 'SOUND ON'}</span>
+        {!soundEnabled ? (
+          <VolumeX size={13} />
+        ) : (
+          <Volume2 size={13} style={{ color: 'var(--color-cyan-glow)' }} />
+        )}
+        <span style={{ color: soundEnabled ? 'var(--color-cyan-glow)' : 'inherit' }}>
+          {soundEnabled ? 'SOUND ON' : 'SOUND OFF'}
+        </span>
       </button>
     </div>
   );
