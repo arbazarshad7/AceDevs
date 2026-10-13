@@ -49,9 +49,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Developer Admin Dashboard
 
-- [ ] **ADM-01**: Protected route guard restricting admin access strictly to authenticated team developers.
-- [ ] **ADM-02**: Post management dashboard with full CRUD operations (Create, Edit, Delete, Publish) connected to Supabase table.
-- [ ] **ADM-03**: Manual GitHub repository sync button and team profile information manager.
+- [x] **ADM-01**: Protected route guard restricting admin access strictly to authenticated team developers.
+- [x] **ADM-02**: Post management dashboard with full CRUD operations (Create, Edit, Delete, Publish) connected to Supabase table.
+- [x] **ADM-03**: Manual GitHub repository sync button and team profile information manager.
 
 ### Audio & Sensory Polish
 
@@ -82,9 +82,9 @@ Which phases cover which requirements.
 | DS-01 | Phase 1 | Complete |
 | DS-02 | Phase 1 | Complete |
 | DS-03 | Phase 1 | Complete |
-| 3D-01 | Phase 2 | Pending |
-| 3D-02 | Phase 2 | Pending |
-| 3D-03 | Phase 2 | Pending |
+| 3D-01 | Phase 2 | Complete |
+| 3D-02 | Phase 2 | Complete |
+| 3D-03 | Phase 2 | Complete |
 | TEAM-01 | Phase 3 | Complete |
 | TEAM-02 | Phase 3 | Complete |
 | GH-01 | Phase 4 | Complete |
@@ -98,9 +98,9 @@ Which phases cover which requirements.
 | AUTH-03 | Phase 6 | Complete |
 | BLOG-01 | Phase 7 | Complete |
 | BLOG-02 | Phase 7 | Complete |
-| ADM-01 | Phase 8 | Pending |
-| ADM-02 | Phase 8 | Pending |
-| ADM-03 | Phase 8 | Pending |
+| ADM-01 | Phase 8 | Complete |
+| ADM-02 | Phase 8 | Complete |
+| ADM-03 | Phase 8 | Complete |
 | AUD-01 | Phase 9 | Pending |
 
 **Coverage:**
