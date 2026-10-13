@@ -32,9 +32,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Trie & Inverted Index Search Engine
 
-- [ ] **SRCH-01**: Custom in-memory Trie data structure implementing $O(k)$ prefix autocomplete for tags, titles, and developers.
-- [ ] **SRCH-02**: Inverted Index engine mapping search tokens to repositories, blog articles, and skill tags with boolean intersection.
-- [ ] **SRCH-03**: HUD search modal triggered via `Cmd+K` / `Ctrl+K` with keyboard navigation, active tag pills, and instant live filtering.
+- [x] **SRCH-01**: Custom in-memory Trie data structure implementing $O(k)$ prefix autocomplete for tags, titles, and developers.
+- [x] **SRCH-02**: Inverted Index engine mapping search tokens to repositories, blog articles, and skill tags with boolean intersection.
+- [x] **SRCH-03**: HUD search modal triggered via `Cmd+K` / `Ctrl+K` with keyboard navigation, active tag pills, and instant live filtering.
 
 ### Authentication (Supabase)
 
@@ -90,9 +90,9 @@ Which phases cover which requirements.
 | GH-01 | Phase 4 | Complete |
 | GH-02 | Phase 4 | Complete |
 | GH-03 | Phase 4 | Complete |
-| SRCH-01 | Phase 5 | Pending |
-| SRCH-02 | Phase 5 | Pending |
-| SRCH-03 | Phase 5 | Pending |
+| SRCH-01 | Phase 5 | Complete |
+| SRCH-02 | Phase 5 | Complete |
+| SRCH-03 | Phase 5 | Complete |
 | AUTH-01 | Phase 6 | Pending |
 | AUTH-02 | Phase 6 | Pending |
 | AUTH-03 | Phase 6 | Pending |

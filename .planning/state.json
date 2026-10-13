@@ -5,8 +5,8 @@
   "phases": [],
   "next": {
     "command": "/gsd-progress --next",
-    "label": "Advance to the next step (plan phase 5)",
-    "reason": "Phase 5 of 9 — needs a plan"
+    "label": "Advance to the next step (plan phase 6)",
+    "reason": "Phase 6 of 9 — needs a plan"
   },
-  "updated_at": "2026-10-13T19:25:21.040Z"
+  "updated_at": "2026-10-13T19:36:40.578Z"
 }
