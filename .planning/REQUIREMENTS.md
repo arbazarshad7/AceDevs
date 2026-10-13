@@ -55,7 +55,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Audio & Sensory Polish
 
-- [ ] **AUD-01**: Web Audio ambient soundscape with toggleable state (`SOUND ON / SOUND OFF`) and futuristic micro-interaction sound FX on hover/click.
+- [x] **AUD-01**: Web Audio ambient soundscape with toggleable state (`SOUND ON / SOUND OFF`) and futuristic micro-interaction sound FX on hover/click.
 
 ## v2 Requirements
 
@@ -101,11 +101,12 @@ Which phases cover which requirements.
 | ADM-01 | Phase 8 | Complete |
 | ADM-02 | Phase 8 | Complete |
 | ADM-03 | Phase 8 | Complete |
-| AUD-01 | Phase 9 | Pending |
+| AUD-01 | Phase 9 | Complete |
 
 **Coverage:**
 - v1 requirements: 23 total
 - Mapped to phases: 23
+- Completed: 23 / 23 (100%) ✓
 - Unmapped: 0 ✓
 
 ---
