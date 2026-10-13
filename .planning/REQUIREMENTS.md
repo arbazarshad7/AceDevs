@@ -21,8 +21,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Team Showcase
 
-- [ ] **TEAM-01**: Team member profile cards for Arbaz Arshad and Devesh Das displaying photo, designation, tech specialties, and bio.
-- [ ] **TEAM-02**: Direct external navigation links to each member's individual portfolio website and GitHub profile.
+- [x] **TEAM-01**: Team member profile cards for Arbaz Arshad and Devesh Das displaying photo, designation, tech specialties, and bio.
+- [x] **TEAM-02**: Direct external navigation links to each member's individual portfolio website and GitHub profile.
 
 ### GitHub Collective Repos
 
@@ -85,8 +85,8 @@ Which phases cover which requirements.
 | 3D-01 | Phase 2 | Pending |
 | 3D-02 | Phase 2 | Pending |
 | 3D-03 | Phase 2 | Pending |
-| TEAM-01 | Phase 3 | Pending |
-| TEAM-02 | Phase 3 | Pending |
+| TEAM-01 | Phase 3 | Complete |
+| TEAM-02 | Phase 3 | Complete |
 | GH-01 | Phase 4 | Pending |
 | GH-02 | Phase 4 | Pending |
 | GH-03 | Phase 4 | Pending |
