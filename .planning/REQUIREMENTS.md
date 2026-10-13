@@ -26,9 +26,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### GitHub Collective Repos
 
-- [ ] **GH-01**: Automated GitHub REST API fetcher querying repositories for Arbaz Arshad and Devesh Das.
-- [ ] **GH-02**: "Collective Repos" panel displaying repository cards with developer attribution, stars, forks, and language tags.
-- [ ] **GH-03**: Client-side caching and fallback mock data when rate limits or offline states occur.
+- [x] **GH-01**: Automated GitHub REST API fetcher querying repositories for Arbaz Arshad and Devesh Das.
+- [x] **GH-02**: "Collective Repos" panel displaying repository cards with developer attribution, stars, forks, and language tags.
+- [x] **GH-03**: Client-side caching and fallback mock data when rate limits or offline states occur.
 
 ### Trie & Inverted Index Search Engine
 
@@ -87,9 +87,9 @@ Which phases cover which requirements.
 | 3D-03 | Phase 2 | Pending |
 | TEAM-01 | Phase 3 | Complete |
 | TEAM-02 | Phase 3 | Complete |
-| GH-01 | Phase 4 | Pending |
-| GH-02 | Phase 4 | Pending |
-| GH-03 | Phase 4 | Pending |
+| GH-01 | Phase 4 | Complete |
+| GH-02 | Phase 4 | Complete |
+| GH-03 | Phase 4 | Complete |
 | SRCH-01 | Phase 5 | Pending |
 | SRCH-02 | Phase 5 | Pending |
 | SRCH-03 | Phase 5 | Pending |
