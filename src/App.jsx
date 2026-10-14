@@ -341,7 +341,7 @@ function PortfolioCockpit() {
                   icon={<Users size={16} />}
                   onClick={() => handleSectionSelect('team')}
                 >
-                  MEET THE FOUNDERS [03]
+                  MEET THE FOUNDERS [02]
                 </ChamferButton>
 
                 <ChamferButton
