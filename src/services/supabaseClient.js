@@ -59,10 +59,11 @@ class FallbackMockAuthClient {
   }
 
   async signInWithOAuth({ provider, options }) {
-    console.warn(`[SupabaseClient:Mock] signInWithOAuth triggered for ${provider}. Live Supabase keys required for external redirect.`);
     return {
-      data: { provider, url: options?.redirectTo || window.location.origin },
-      error: null
+      data: null,
+      error: {
+        message: `Live Supabase configuration required for ${provider.toUpperCase()} OAuth. Please configure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your .env file.`
+      }
     };
   }
 
@@ -81,7 +82,11 @@ class FallbackMockAuthClient {
           : email.toLowerCase().includes('devesh')
             ? 'Devesh Das'
             : email.split('@')[0],
-        avatar_url: null
+        avatar_url: email.toLowerCase().includes('arbaz')
+          ? 'https://github.com/arbazarshad7.png'
+          : email.toLowerCase().includes('devesh')
+            ? 'https://github.com/ninja27dev.png'
+            : null
       }
     };
 

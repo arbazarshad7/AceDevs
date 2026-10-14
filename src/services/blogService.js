@@ -114,7 +114,7 @@ class BlogService {
         id: 'arbaz',
         code: 'DEV-01',
         name: 'Arbaz Arshad',
-        designation: 'Full-Stack & Systems Architect'
+        designation: 'Game Developer · AI & Systems'
       },
       publishedAt: now,
       readingTimeMinutes,

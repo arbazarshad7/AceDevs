@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import CyberCanvas from './components/canvas/CyberCanvas';
 import CyberNodeNetwork from './components/canvas/CyberNodeNetwork';
 import ViewportHud from './components/hud/ViewportHud';
@@ -54,13 +54,13 @@ function PortfolioCockpit() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  const handleNodeSelect = (node) => {
+  const handleNodeSelect = useCallback((node) => {
     setFocusedNode(node);
     if (node.id === 'arbaz' || node.id === 'devesh') {
       setFocusedMemberId(node.id);
       setSection('team');
     }
-  };
+  }, []);
 
   const handleSectionSelect = (newSection) => {
     setSection(newSection);
@@ -96,12 +96,12 @@ function PortfolioCockpit() {
   return (
     <div className="acedevs-app-root">
       {/* 1. 3D WebGL Cybernetic Node Network Hero Canvas */}
-      <CyberCanvas>
+      <CyberCanvas className={section !== 'hero' && section !== 'showcase' ? 'dimmed' : ''}>
         <CyberNodeNetwork
           bearing={bearing}
           onBearingChange={setBearing}
           onNodeSelect={handleNodeSelect}
-          interactive
+          interactive={section === 'hero' || section === 'showcase'}
         />
       </CyberCanvas>
 
@@ -391,7 +391,7 @@ function PortfolioCockpit() {
                     Dual Developer Synergy
                   </h3>
                   <p style={{ fontSize: '0.85rem', color: 'var(--color-cyan-muted)', lineHeight: '1.6', marginBottom: '0.75rem' }}>
-                    Full-stack architecture, distributed systems, and creative WebGL development connected to individual portfolios.
+                    Game development, AI systems, computer vision, 3D physics engines, and WebGL graphics connected to individual portfolios.
                   </p>
                   <span style={{
                     fontFamily: 'var(--font-mono)',

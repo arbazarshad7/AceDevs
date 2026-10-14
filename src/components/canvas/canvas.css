@@ -12,6 +12,15 @@
   pointer-events: auto;
   overflow: hidden;
   background-color: var(--color-abyss);
+  opacity: 1;
+  filter: blur(0px);
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), filter 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cyber-canvas-container.dimmed {
+  opacity: 0.22;
+  filter: blur(1.5px);
+  pointer-events: none;
 }
 
 .cyber-webgl-canvas {

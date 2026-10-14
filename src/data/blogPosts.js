@@ -10,7 +10,7 @@ export const BLOG_POSTS = [
       id: 'arbaz',
       code: 'DEV-01',
       name: 'Arbaz Arshad',
-      designation: 'Full-Stack & Systems Architect'
+      designation: 'Game Developer · AI & Systems'
     },
     publishedAt: '2026-09-28T14:30:00Z',
     readingTimeMinutes: 6,
@@ -73,85 +73,68 @@ To synchronize the 3D WebGL hero canvas with perimeter HUD controls (such as azi
   },
   {
     id: 'post-02',
-    slug: 'zero-allocation-distributed-message-queues-go-raft',
-    title: 'Building Zero-Allocation Distributed Message Queues in Go and Raft Consensus',
-    excerpt: 'Techniques for eliminating garbage collection pauses in high-throughput Go message brokers, paired with HashiCorp Raft for state replication across resilient microservice clusters.',
+    slug: 'sensory-enemy-perception-ai-locomotion-unity-3d',
+    title: 'Architecting Sensory Enemy Perception AI and Locomotion Controllers in Unity 3D',
+    excerpt: 'Implementing visual raycast cones, acoustic hearing radii, and responsive ninja locomotion state machines for high-fidelity 3D action combat games.',
     author: {
       id: 'devesh',
       code: 'DEV-02',
       name: 'Devesh Das',
-      designation: 'Distributed Systems & Cloud Engineer'
+      designation: 'Game Developer & Computer Science Engineer'
     },
     publishedAt: '2026-10-02T10:15:00Z',
     readingTimeMinutes: 7,
-    tags: ['go', 'distributed-systems', 'raft', 'concurrency', 'networking'],
+    tags: ['unity3d', 'csharp', 'game-ai', 'fsm', 'locomotion', 'physics'],
     featured: true,
-    content: `## 1. High-Throughput Distributed Messaging Constraints
+    content: `## 1. Perception Modeling in 3D Action & Stealth Games
 
-When building mission-critical message streaming engines, microsecond latency spikes (tail latency) are almost always caused by Go runtime Garbage Collection (GC) sweeps. When allocating millions of transient event buffers per second, the scavenger thread starves worker goroutines.
+In tactical action games like *White Ninja*, believable enemy behavior hinges on realistic perception models. Rather than relying on simple distance checks that penetrate solid obstacles, modern stealth engines combine **optical vision cones** with **acoustic sensory radii**.
 
-To eliminate allocations along the critical path, our broker utilizes **sync.Pool byte slice recycling** and pre-allocated ring buffers.
+\`\`\`csharp
+public class EnemyPerception : MonoBehaviour {
+    [SerializeField] private float viewRadius = 15f;
+    [Range(0, 360)] [SerializeField] private float viewAngle = 110f;
+    [SerializeField] private LayerMask targetMask;
+    [SerializeField] private LayerMask obstacleMask;
 
-\`\`\`go
-package broker
-
-import (
-    "sync"
-    "sync/atomic"
-)
-
-type EventPacket struct {
-    TopicID   uint32
-    Payload   []byte
-    Sequence  uint64
-}
-
-var packetPool = sync.Pool{
-    New: func() any {
-        return &EventPacket{
-            Payload: make([]byte, 4096), // Pre-allocated 4KB frame
+    public bool CanSeeTarget(Transform target) {
+        Vector3 dirToTarget = (target.position - transform.position).normalized;
+        if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2f) {
+            float distToTarget = Vector3.Distance(transform.position, target.position);
+            if (!Physics.Raycast(transform.position + Vector3.up, dirToTarget, distToTarget, obstacleMask)) {
+                return true; // Unobstructed line of sight within vision cone
+            }
         }
-    },
-}
-
-func AcquirePacket(topic uint32, seq uint64) *EventPacket {
-    pkt := packetPool.Get().(*EventPacket)
-    pkt.TopicID = topic
-    pkt.Sequence = seq
-    return pkt
-}
-
-func ReleasePacket(pkt *EventPacket) {
-    pkt.TopicID = 0
-    packetPool.Put(pkt)
+        return false;
+    }
 }
 \`\`\`
 
-## 2. Consensus Replication via Raft
+## 2. Locomotion State Machines (FSM)
 
-To guarantee consistency across partitioned nodes, write requests first enter a write-ahead log (WAL) validated by a Raft quorum before being committed to consumers:
+High-responsiveness player locomotion (wall-running, sliding, ledge-grabbing) requires a decoupled Finite State Machine to eliminate conflicting physics forces.
 
-- **Leader Election**: Automated failover within 150ms of heartbeat silence.
-- **Log Compaction**: Snapshots prevent unbounded WAL disk growth.
-- **Lock-Free Concurrency**: Atomic sequence increments guarantee strict ordering without mutex contention.
+- **Grounded State**: Normal friction, step-offset climbing, input acceleration smoothing.
+- **Wall-Run State**: Gravity override, surface-normal alignment, camera tilt tweening.
+- **Airborne State**: Directional air control, coyote time buffer, velocity damping.
 
-\`\`\`bash
-# Benchmarking Zero-Allocation Broker vs Standard Channel Queue
-$ go test -bench=BenchmarkPublishThroughput -benchmem
-BenchmarkPublishThroughput-16    12400000    92.4 ns/op    0 B/op    0 allocs/op
-PASS
+\`\`\`csharp
+public void UpdateLocomotionState() {
+    switch (currentState) {
+        case MovementState.WallRunning:
+            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+            rb.AddForce(wallForward * wallRunSpeed, ForceMode.Acceleration);
+            break;
+        case MovementState.Sliding:
+            rb.AddForce(transform.forward * slideForce, ForceMode.Force);
+            break;
+    }
+}
 \`\`\`
 
-## 3. Network Transport Hardening
+## 3. Hitbox / Hurtbox Precision Combat
 
-Raw TCP sockets wrapped in custom framed binary protocols bypass HTTP/2 overhead. TCP \`NODELAY\` disables Nagle's algorithm, ensuring packets ship immediately without waiting for buffer saturation:
-
-> [!WARNING]
-> Disabling Nagle's algorithm without proper application-layer batching will saturate network switches with undersized packets. Always implement client-side flush thresholds.
-
-## Summary
-
-Designing distributed brokers with zero memory allocations produces flat latency curves under heavy loads while Raft ensures fault tolerance during catastrophic network partitions.`
+Katana melee systems require deterministic frame-accurate hitboxes active only during active animation strike windows, preventing ghost hits and ensuring crisp parry detection.`
   },
   {
     id: 'post-03',
@@ -162,7 +145,7 @@ Designing distributed brokers with zero memory allocations produces flat latency
       id: 'arbaz',
       code: 'DEV-01',
       name: 'Arbaz Arshad',
-      designation: 'Full-Stack & Systems Architect'
+      designation: 'Game Developer · AI & Systems'
     },
     publishedAt: '2026-10-07T16:00:00Z',
     readingTimeMinutes: 5,
@@ -233,56 +216,64 @@ Profiled in our AceDevs search modal:
   },
   {
     id: 'post-04',
-    slug: 'hardening-cloud-microservices-ebpf-linux-namespaces',
-    title: 'Hardening Cloud Microservices with eBPF Kernel Tracing and Linux Namespaces',
-    excerpt: 'Comprehensive architectural guide to non-invasive runtime security auditing and container network isolation using extended Berkeley Packet Filters (eBPF).',
+    slug: 'deterministic-turn-loops-pwa-native-board-games',
+    title: 'Deterministic Turn Loops and Offline PWA Architecture in Native Games',
+    excerpt: 'Architecting an offline-first native board game engine with state machine validation, Web Audio sound synthesis, and mobile Progressive Web App distribution.',
     author: {
       id: 'devesh',
       code: 'DEV-02',
       name: 'Devesh Das',
-      designation: 'Distributed Systems & Cloud Engineer'
+      designation: 'Game Developer & Computer Science Engineer'
     },
     publishedAt: '2026-10-11T09:00:00Z',
     readingTimeMinutes: 8,
-    tags: ['security', 'ebpf', 'linux', 'microservices', 'cloud'],
+    tags: ['pwa', 'javascript', 'game-dev', 'offline-first', 'web-audio', 'state-machine'],
     featured: false,
-    content: `## 1. The Kernel Visibility Dilemma
+    content: `## 1. Native & Indigenous Game Preservation
 
-Traditional container security monitoring relies on userspace sidecars or daemon agents polling \`/proc\` and system call hooks via \`ptrace\`. This approaches incurs steep CPU overhead and introduces security attack surfaces.
+*Pasha Palli (पासा पल्ली)* is an authentic Indian cross-race dice board game featuring a 4-player token race, sanctuary X-squares, and knock-out capture rules. Rebuilding this traditional game as a high-performance web app required a deterministic finite state machine and offline-first PWA caching.
 
-With **eBPF (extended Berkeley Packet Filter)**, sandboxed programs run directly inside the Linux kernel on event triggers (tracepoints, kprobes, sockets) without modifying kernel source code or restarting services.
+\`\`\`javascript
+// Deterministic Turn Loop FSM
+const GameState = {
+  ROLLING: 'ROLLING',
+  SELECTING_PAWN: 'SELECTING_PAWN',
+  ANIMATING_MOVE: 'ANIMATING_MOVE',
+  EVALUATING_OUTCOME: 'EVALUATING_OUTCOME',
+  SWITCHING_TURN: 'SWITCHING_TURN'
+};
 
-\`\`\`c
-// Minimal eBPF program tracking unauthorized socket connections
-#include <linux/bpf.h>
-#include <bpf/bpf_helpers.h>
-
-SEC("tracepoint/syscalls/sys_enter_connect")
-int trace_connect(struct trace_event_raw_sys_enter *ctx) {
-    __u32 pid = bpf_get_current_pid_tgid() >> 32;
-    
-    // Log system call telemetry to ring buffer
-    bpf_printk("Access Telemetry: Process PID %d invoked connect()\\n", pid);
-    return 0;
+function processDiceRoll(diceValue) {
+  if (diceValue === 4 || diceValue === 8) {
+    // Bonus turn granted on high throws
+    grantBonusRoll();
+  }
 }
-
-char _license[] SEC("license") = "GPL";
 \`\`\`
 
-## 2. Hardening Namespaces with Network Policies
+## 2. Zero-Dependency Web Audio Synthesis
 
-Container isolation relies on Linux cgroups and network namespaces (\`netns\`). By hooking eBPF bytecode to the \`tc\` (traffic control) classifier:
+Rather than bundling heavy audio MP3/WAV files that increase initial download weight, procedural audio synthesizes dice rattles and token placement thuds directly via the Web Audio API:
 
-1. **Ingress Filtering**: Reject packets originating outside trusted VPC CIDRs at wire speed.
-2. **DDoS Mitigation**: Drops malformed SYN floods prior to TCP stack socket allocation.
-3. **Zero Overhead Metrics**: Kernel ring buffers stream telemetry directly to monitoring dashboards.
+\`\`\`javascript
+function playTokenMoveSound(audioCtx) {
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = 'triangle';
+  osc.frequency.setValueAtTime(320, audioCtx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(140, audioCtx.currentTime + 0.08);
+  gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+  osc.start();
+  osc.stop(audioCtx.currentTime + 0.08);
+}
+\`\`\`
 
-> [!NOTE]
-> eBPF programs pass through an in-kernel verifier ensuring they cannot dereference null pointers or enter infinite loops, guaranteeing system kernel stability.
+## 3. Offline Service Worker Packaging
 
-## Architectural Summary
-
-By combining eBPF kernel event tracing with strict namespace isolation, cloud platforms achieve zero-overhead security compliance and deterministic network observability.`
+Using a Cache-First service worker strategy with a Web App Manifest enables Pasha Palli to run 100% offline and be installed directly to home screens on Android and iOS.`
   }
 ];
 

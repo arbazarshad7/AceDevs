@@ -8,7 +8,7 @@ const NODE_DEFINITIONS = [
   {
     id: 'arbaz',
     label: 'ARBAZ ARSHAD',
-    subtitle: 'CO-FOUNDER // FULL-STACK & SYSTEMS',
+    subtitle: 'CO-FOUNDER // GAME DEV & AI SYSTEMS',
     code: 'DEV-01',
     position: [-6.5, 2.8, 2.5],
     size: 1.5,
@@ -18,7 +18,7 @@ const NODE_DEFINITIONS = [
   {
     id: 'devesh',
     label: 'DEVESH DAS',
-    subtitle: 'CO-FOUNDER // CREATIVE TECH & ARCHITECTURE',
+    subtitle: 'CO-FOUNDER // GAME DEV & CS ENGINEER',
     code: 'DEV-02',
     position: [6.5, -1.8, -2.5],
     size: 1.5,
@@ -95,7 +95,18 @@ export default function CyberNodeNetwork({
 }) {
   const canvasCtx = useCyberCanvas();
   const [hoveredNode, setHoveredNode] = useState(null);
-  const [hoverPos, setHoverPos] = useState({ x: 0, y: 0 });
+  const tooltipRef = useRef(null);
+  const hoveredNodeIdRef = useRef(null);
+
+  // Store callbacks and flags in mutable refs to avoid tearing down the 3D scene on re-renders
+  const onBearingChangeRef = useRef(onBearingChange);
+  onBearingChangeRef.current = onBearingChange;
+
+  const onNodeSelectRef = useRef(onNodeSelect);
+  onNodeSelectRef.current = onNodeSelect;
+
+  const interactiveRef = useRef(interactive);
+  interactiveRef.current = interactive;
 
   // Camera orbit physics references
   const thetaRef = useRef(0);
@@ -108,17 +119,19 @@ export default function CyberNodeNetwork({
   const lastPointer = useRef({ x: 0, y: 0 });
   const hasUserDragged = useRef(false);
   const lastEmittedBearing = useRef(-1);
+  const lastEmitTime = useRef(0);
 
-  // Synchronize targetTheta when external bearing changes (e.g. from CompassRosette)
+  // Synchronize targetTheta ONLY when external bearing changes (e.g. from CompassRosette drag)
   useEffect(() => {
-    if (!isDragging.current) {
-      const incomingRad = (bearing * Math.PI) / 180;
-      // Find shortest angular path to target bearing
-      let diff = (incomingRad - (thetaRef.current % (Math.PI * 2)));
-      while (diff < -Math.PI) diff += Math.PI * 2;
-      while (diff > Math.PI) diff -= Math.PI * 2;
-      targetThetaRef.current = thetaRef.current + diff;
-    }
+    if (isDragging.current) return;
+    if (bearing === lastEmittedBearing.current) return;
+
+    const incomingRad = (bearing * Math.PI) / 180;
+    // Find shortest angular path to target bearing
+    let diff = (incomingRad - (thetaRef.current % (Math.PI * 2)));
+    while (diff < -Math.PI) diff += Math.PI * 2;
+    while (diff > Math.PI) diff -= Math.PI * 2;
+    targetThetaRef.current = thetaRef.current + diff;
   }, [bearing]);
 
   useEffect(() => {
@@ -278,7 +291,7 @@ export default function CyberNodeNetwork({
     const mouseNorm = new THREE.Vector2(-999, -999);
 
     const handlePointerDown = (e) => {
-      if (!interactive) return;
+      if (!interactiveRef.current) return;
       isDragging.current = true;
       hasUserDragged.current = false;
       lastPointer.current = { x: e.clientX, y: e.clientY };
@@ -289,7 +302,7 @@ export default function CyberNodeNetwork({
       mouseNorm.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
       mouseNorm.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
 
-      if (isDragging.current && interactive) {
+      if (isDragging.current && interactiveRef.current) {
         const deltaX = e.clientX - lastPointer.current.x;
         const deltaY = e.clientY - lastPointer.current.y;
         if (Math.abs(deltaX) > 2 || Math.abs(deltaY) > 2) {
@@ -307,13 +320,14 @@ export default function CyberNodeNetwork({
       isDragging.current = false;
     };
 
-    const handleClick = (e) => {
+    const handleClick = () => {
+      if (!interactiveRef.current) return;
       if (hasUserDragged.current) return;
       raycaster.setFromCamera(mouseNorm, camera);
       const intersects = raycaster.intersectObjects(nodeMeshes);
       if (intersects.length > 0) {
         const nodeData = intersects[0].object.userData.nodeData;
-        if (onNodeSelect) onNodeSelect(nodeData);
+        if (onNodeSelectRef.current) onNodeSelectRef.current(nodeData);
       }
     };
 
@@ -344,14 +358,16 @@ export default function CyberNodeNetwork({
       camera.position.z = radius * Math.cos(thetaRef.current) * cosPhi;
       camera.lookAt(0, 0, 0);
 
-      // Calculate 0°-360° heading for compass rosette synchronization
+      // Calculate 0°-360° heading and throttle emitting to avoid React 60fps re-render thrashing
       let headingDeg = Math.round((thetaRef.current * 180) / Math.PI) % 360;
       if (headingDeg < 0) headingDeg += 360;
 
-      if (headingDeg !== lastEmittedBearing.current) {
+      const now = performance.now();
+      if (headingDeg !== lastEmittedBearing.current && now - lastEmitTime.current > 120) {
         lastEmittedBearing.current = headingDeg;
-        if (onBearingChange) {
-          onBearingChange(headingDeg);
+        lastEmitTime.current = now;
+        if (onBearingChangeRef.current) {
+          onBearingChangeRef.current(headingDeg);
         }
       }
 
@@ -366,30 +382,49 @@ export default function CyberNodeNetwork({
         }
       });
 
-      // Node Raycasting for tooltips & hover highlight
-      raycaster.setFromCamera(mouseNorm, camera);
-      const intersects = raycaster.intersectObjects(nodeMeshes);
+      // Node Raycasting for tooltips & hover highlight ONLY when interactive and not dragging
+      if (interactiveRef.current && !isDragging.current) {
+        raycaster.setFromCamera(mouseNorm, camera);
+        const intersects = raycaster.intersectObjects(nodeMeshes);
 
-      if (intersects.length > 0) {
-        const hitData = intersects[0].object.userData.nodeData;
-        setHoveredNode(hitData);
+        if (intersects.length > 0) {
+          const hitData = intersects[0].object.userData.nodeData;
+          if (hoveredNodeIdRef.current !== hitData.id) {
+            hoveredNodeIdRef.current = hitData.id;
+            setHoveredNode(hitData);
+          }
 
-        // Convert 3D position to 2D screen coordinates
-        const hitSubGroup = intersects[0].object.userData.subGroup;
-        const worldPos = new THREE.Vector3();
-        hitSubGroup.getWorldPosition(worldPos);
-        worldPos.project(camera);
+          // Direct DOM transform update (Zero React re-render overhead per frame!)
+          const hitSubGroup = intersects[0].object.userData.subGroup;
+          const worldPos = new THREE.Vector3();
+          hitSubGroup.getWorldPosition(worldPos);
+          worldPos.project(camera);
 
-        const rect = container.getBoundingClientRect();
-        const screenX = ((worldPos.x + 1) / 2) * rect.width;
-        const screenY = ((-worldPos.y + 1) / 2) * rect.height;
-        setHoverPos({ x: screenX, y: screenY });
+          const rect = container.getBoundingClientRect();
+          const screenX = ((worldPos.x + 1) / 2) * rect.width;
+          const screenY = ((-worldPos.y + 1) / 2) * rect.height;
 
-        // Highlight outer mesh
-        intersects[0].object.userData.outerMesh.scale.set(1.2, 1.2, 1.2);
-        intersects[0].object.userData.innerMesh.material.emissiveIntensity = 1.3;
+          if (tooltipRef.current) {
+            tooltipRef.current.style.transform = `translate(${screenX}px, ${screenY - 20}px) translate(-50%, -100%)`;
+            tooltipRef.current.style.visibility = 'visible';
+          }
+
+          // Highlight outer mesh
+          intersects[0].object.userData.outerMesh.scale.set(1.2, 1.2, 1.2);
+          intersects[0].object.userData.innerMesh.material.emissiveIntensity = 1.3;
+        } else {
+          if (hoveredNodeIdRef.current !== null) {
+            hoveredNodeIdRef.current = null;
+            setHoveredNode(null);
+            nodeMeshesMap.forEach((entry) => {
+              entry.outerMesh.scale.set(1, 1, 1);
+              entry.innerMesh.material.emissiveIntensity = entry.def.primary ? 0.8 : 0.45;
+            });
+          }
+        }
       } else {
-        if (hoveredNode) {
+        if (hoveredNodeIdRef.current !== null) {
+          hoveredNodeIdRef.current = null;
           setHoveredNode(null);
           nodeMeshesMap.forEach((entry) => {
             entry.outerMesh.scale.set(1, 1, 1);
@@ -428,22 +463,22 @@ export default function CyberNodeNetwork({
         }
       });
     };
-  }, [canvasCtx, onBearingChange, onNodeSelect, interactive]);
+  }, [canvasCtx]); // Note: ONLY re-run if canvasCtx changes!
 
   // Projected tactical 3D HUD Tooltip rendered directly over the canvas
   return (
     <>
       {hoveredNode && (
         <div
+          ref={tooltipRef}
           className="cyber-node-tooltip"
           style={{
             position: 'absolute',
-            left: `${hoverPos.x}px`,
-            top: `${hoverPos.y - 20}px`,
-            transform: 'translate(-50%, -100%)',
+            left: 0,
+            top: 0,
             pointerEvents: 'none',
             zIndex: 25,
-            transition: 'top 0.05s ease-out, left 0.05s ease-out'
+            visibility: 'hidden'
           }}
         >
           <div className="cyber-tooltip-card">

@@ -1,20 +1,20 @@
 import { MOCK_REPOSITORIES } from '../data/mockRepos';
 
-const CACHE_KEY = 'acedevs_github_repos_cache_v1';
+const CACHE_KEY = 'acedevs_github_repos_cache_v2';
 const DEFAULT_TTL_MS = 30 * 60 * 1000; // 30 minutes
 
 const ARBAZ_OWNER = {
   id: 'arbaz',
   code: 'DEV-01',
   name: 'Arbaz Arshad',
-  sector: 'BACKEND & CLOUD'
+  sector: 'GAME SYSTEMS & AI'
 };
 
 const DEVESH_OWNER = {
   id: 'devesh',
   code: 'DEV-02',
   name: 'Devesh Das',
-  sector: 'GRAPHICS & INTERACTION'
+  sector: 'GAME SYSTEMS & PHYSICS'
 };
 
 /**
@@ -116,8 +116,8 @@ export async function fetchCollectiveRepos(options = {}) {
 
   // 2. Fetch live data from GitHub API in parallel
   try {
-    const arbazUsername = import.meta.env?.VITE_GITHUB_USER_ARBAZ || 'arbazarshad';
-    const deveshUsername = import.meta.env?.VITE_GITHUB_USER_DEVESH || 'deveshdas';
+    const arbazUsername = import.meta.env?.VITE_GITHUB_USER_ARBAZ || 'arbazarshad7';
+    const deveshUsername = import.meta.env?.VITE_GITHUB_USER_DEVESH || 'ninja27dev';
     const authToken = token || import.meta.env?.VITE_GITHUB_TOKEN || null;
 
     const [arbazRes, deveshRes] = await Promise.allSettled([

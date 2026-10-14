@@ -22,21 +22,37 @@ AceDevs is a team portfolio website for developers **Arbaz Arshad** and **Devesh
 
 ## Technology Stack
 
-Technology stack not yet documented. Will populate after codebase mapping or first phase.
+- **Core & Build**: Vite 5 (`^5.4.10`) + React 18 (`^18.3.1`) SPA.
+- **3D Graphics & WebGL**: Three.js (`^0.186.1`) with custom GLSL pulse line shaders and procedural particle systems.
+- **Styling**: Vanilla CSS with custom properties (`src/styles/theme.css`), 45° chamfered clip-path geometry, glassmorphism (`backdrop-filter: blur(20px)`), and dual Google Fonts (`Space Grotesk` & `Space Mono`).
+- **Data Structures / Search**: Custom in-memory `PrefixTrie.js` ($O(k)$ prefix autocomplete) + `InvertedIndex.js` (multi-tag posting list set intersection) with sub-millisecond execution.
+- **Backend / Database / Auth**: Supabase (`@supabase/supabase-js` `^2.117.3`), PostgreSQL `posts` table, GoTrue Auth (Google OAuth 2.0 & Email/Password), Row-Level Security (RLS) policies, with resilient `FallbackMockAuthClient` for local development.
+- **Iconography**: Lucide React (`^0.453.0`).
+- **Audio Design**: HTML5 Web Audio API procedural synthesizer for ambient background drone and UI micro-sound feedback.
 <!-- GSD:stack-end -->
 
 <!-- GSD:conventions-start source:CONVENTIONS.md -->
 
 ## Conventions
 
-Conventions not yet established. Will populate as patterns emerge during development.
+- **Visual Design**: Strict adherence to the Tactical Sci-Fi HUD aesthetic. Deep space navy canvas (`#020a19`), ice cyan luminescence (`#d5e0ff`), 45° chamfered polygon corners, perimeter viewport brackets (`[00]`), and monospace telemetry indices.
+- **Founders & Attribution**:
+  - Arbaz Arshad `[DEV-01]`: Game Developer · AI Systems · Tech Wizard (`arbazarshad.com`, `github.com/arbazarshad7`).
+  - Devesh Das `[DEV-02]`: Game Developer & CS Engineer (`mrdeveshdas.vercel.app`, `github.com/ninja27dev`).
+  - Headquarters: `BHUBANESWAR, IN // GLOBAL REMOTE` (`20.2961° N, 85.8245° E`, Centurion University).
+- **Graceful Degradation**: Always provide local fallbacks (`mockRepos.js`, `blogPosts.js`, `FallbackMockAuthClient`). The frontend must NEVER crash or blank out due to missing API keys or offline network status.
+- **Search Latency**: Keep search logic in-memory on the client; never add remote search dependencies for core portfolio entity lookup.
+- **Clean Audio**: Sound must default to muted until the user clicks `SOUND [OFF]`. All audio must be procedurally generated via Web Audio API without bulky static media files.
 <!-- GSD:conventions-end -->
 
 <!-- GSD:architecture-start source:ARCHITECTURE.md -->
 
 ## Architecture
 
-Architecture not yet mapped. Follow existing patterns found in the codebase.
+- **Viewport HUD Layering**: High Z-index perimeter frame (`ViewportHud.jsx`) overlaying a full-viewport Three.js WebGL canvas (`CyberCanvas.jsx`). Lower content sections dim and blur the 3D canvas for crisp readability.
+- **State Flow**: Unidirectional state orchestration in `App.jsx`, augmented by global React Contexts (`AuthContext.jsx`, `SoundContext.jsx`) and observable pub-sub stores (`blogService.js`).
+- **Algorithmic Search**: `searchEngine.js` integrates `PrefixTrie` and `InvertedIndex`, triggered globally via `Cmd+K` / `Ctrl+K`. Incremental re-indexing occurs upon article publish/update.
+- **Security Boundaries**: Protected admin routes (`/admin` / Cockpit view) guarded by `AdminGuard.jsx` against email whitelist (`VITE_DEV_EMAILS`) and enforced server-side via Supabase Row-Level Security (RLS).
 <!-- GSD:architecture-end -->
 
 <!-- GSD:skills-start source:skills/ -->

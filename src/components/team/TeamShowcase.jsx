@@ -62,8 +62,8 @@ export default function TeamShowcase({
         </h1>
 
         <p className="team-showcase-desc">
-          Meet the engineers behind AceDevs. Dual technical mastery combining distributed systems architecture,
-          algorithmic cloud engines, and creative WebGL visual computing.
+          Meet the engineers behind AceDevs. Dual mastery combining game systems architecture,
+          AI models, robotics, 3D physics engines, and high-performance interactive computing.
         </p>
 
         {/* Tactical Filter Selector */}
@@ -158,10 +158,10 @@ export default function TeamShowcase({
               lineHeight: '1.7',
               margin: 0
             }}>
-              AceDevs unites two distinct engineering paradigms into a cohesive collective. While Arbaz crafts
-              fault-tolerant backends, distributed data pipelines, and Trie-based search indices, Devesh builds
-              real-time 3D shaders, procedural animations, and responsive tactical user interfaces. Together,
-              we build robust digital infrastructure that looks as extraordinary as it performs.
+              AceDevs unites two passionate game developers and engineers into a cohesive collective. While Arbaz builds
+              multiplayer game systems, autonomous AI agents, computer-vision robotics, and state-machine architectures, Devesh engineers
+              3D physics engines, Blender assets, stealth/action combat locomotion, and native board game PWAs. Together,
+              we build immersive software and games that look as extraordinary as they perform.
             </p>
           </div>
 

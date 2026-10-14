@@ -37,8 +37,10 @@ export const PulseLineShader = {
     varying float vOffset;
 
     void main() {
-      // Flowing energy packet pulse calculation
-      float phase = fract(vProgress * uPulseFrequency - uTime * uPulseSpeed + vOffset);
+      // Flowing energy packet pulse calculation with safe periodic phase wrapping
+      float rawPhase = vProgress * uPulseFrequency - uTime * uPulseSpeed + vOffset;
+      float phase = fract(rawPhase);
+      if (phase < 0.0) phase += 1.0;
       
       // Intense, high-energy pulse head with exponential trailing falloff
       float pulse = pow(smoothstep(0.0, 1.0, phase), 6.0);
@@ -87,8 +89,9 @@ export const ParticleShader = {
       vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
       gl_Position = projectionMatrix * mvPosition;
       
-      // Attenuated point size with pixel ratio scaling
-      gl_PointSize = (aScale * 38.0 * uPixelRatio) / -mvPosition.z;
+      // Safely clamped attenuated point size preventing division by zero or negative radii
+      float pZ = max(-mvPosition.z, 0.1);
+      gl_PointSize = clamp((aScale * 38.0 * uPixelRatio) / pZ, 1.0, 72.0);
     }
   `,
   fragmentShader: `
@@ -108,8 +111,9 @@ export const ParticleShader = {
       // Bright inner core
       float core = smoothstep(0.18, 0.0, dist);
       
-      // Color gradient pulsing over time
-      vec3 color = mix(uColor2, uColor1, 0.4 + 0.6 * sin(uTime * 1.2 + vPhase * 6.28));
+      // Color gradient pulsing over time bounded to [0.0, 1.0]
+      float mixFactor = clamp(0.4 + 0.6 * sin(uTime * 1.2 + vPhase * 6.28), 0.0, 1.0);
+      vec3 color = mix(uColor2, uColor1, mixFactor);
       color += vec3(core * 0.85); // Core brilliance
       
       gl_FragColor = vec4(color, halo * 0.88);

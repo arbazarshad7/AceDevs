@@ -120,33 +120,20 @@ export default function AuthModal({
   const handleGoogleSignIn = async () => {
     setSubmitting(true);
     setValidationError('');
+    setSuccessMessage('');
     try {
       const res = await signInWithGoogle();
       if (res.success) {
         setSuccessMessage('INITIATING GOOGLE OAUTH 2.0 PROTOCOL...');
+      } else if (res.error) {
+        setValidationError(res.error);
       }
     } finally {
       setSubmitting(false);
     }
   };
 
-  const handlePresetLogin = async (presetEmail, devName) => {
-    setEmail(presetEmail);
-    setPassword('acedevs-sec-pass');
-    setSubmitting(true);
-    setValidationError('');
-    try {
-      const res = await signInWithEmail(presetEmail, 'acedevs-sec-pass');
-      if (res.success) {
-        setSuccessMessage(`ACCESS GRANTED // WELCOME ${devName.toUpperCase()}`);
-        setTimeout(() => {
-          onClose();
-        }, 700);
-      }
-    } finally {
-      setSubmitting(false);
-    }
-  };
+
 
   return (
     <div
@@ -394,30 +381,7 @@ export default function AuthModal({
             </div>
           </form>
 
-          {/* 9. PRESET DEVELOPER QUICK-LOGIN BUTTONS (For seamless review & verification) */}
-          <div className="auth-preset-section">
-            <span className="auth-preset-title">
-              DEVELOPER BYPASS // PRESET ACCESS TOKENS:
-            </span>
-            <div className="auth-preset-pills">
-              <button
-                id="btn-preset-arbaz"
-                type="button"
-                className="auth-preset-pill"
-                onClick={() => handlePresetLogin('arbaz@acedevs.io', 'Arbaz Arshad')}
-              >
-                [DEV-01] ARBAZ ARSHAD
-              </button>
-              <button
-                id="btn-preset-devesh"
-                type="button"
-                className="auth-preset-pill"
-                onClick={() => handlePresetLogin('devesh@acedevs.io', 'Devesh Das')}
-              >
-                [DEV-02] DEVESH DAS
-              </button>
-            </div>
-          </div>
+
 
           {/* 10. FOOTER SHORTCUTS */}
           <div className="auth-footer">

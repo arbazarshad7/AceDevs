@@ -8,66 +8,68 @@ export const TEAM_MEMBERS = [
     id: 'arbaz',
     code: 'DEV-01',
     name: 'Arbaz Arshad',
-    designation: 'Co-Founder // Full-Stack Architect & Distributed Systems',
-    shortDesignation: 'Full-Stack Architect',
-    role: 'Distributed Systems & Cloud Architecture',
-    sector: 'BACKEND & CLOUD',
-    coordinates: '19.0760° N, 72.8777° E',
-    avatar: '/avatars/arbaz.png',
+    designation: 'Co-Founder // Game Developer · AI Systems · Tech Wizard',
+    shortDesignation: 'Game Developer & AI Engineer',
+    role: 'Game Design, Multiplayer Systems & AI / XR',
+    sector: 'GAME SYSTEMS & AI',
+    tagline: 'CODE · CREATE · CONQUER',
+    coordinates: '20.2961° N, 85.8245° E',
+    avatar: 'https://github.com/arbazarshad7.png',
     status: 'ONLINE // ACTIVE',
-    bio: 'Specializing in high-throughput distributed backends, algorithmic optimization, microservice orchestration, and resilient cloud infrastructure. Spearheads AceDevs core architectural engineering, algorithmic search pipelines, and Supabase database engines.',
+    bio: 'Game developer and creative systems engineer building multiplayer games, autonomous AI agents, XR experiences, and computer-vision robotics with Unity, Unreal, C#, and Python. Cares deeply about game mechanics, UX, clean architecture, and state machines where interactive software truly lives.',
     specialties: [
-      { name: 'Distributed Systems', level: 'CORE' },
-      { name: 'Node.js & Go', level: 'EXPERT' },
-      { name: 'PostgreSQL & Supabase', level: 'CORE' },
-      { name: 'System Design', level: 'ARCHITECT' },
-      { name: 'Docker & Kubernetes', level: 'ADVANCED' },
-      { name: 'REST & GraphQL APIs', level: 'EXPERT' }
+      { name: 'Unity & Unreal Engine', level: 'CORE' },
+      { name: 'C# & Game Design', level: 'EXPERT' },
+      { name: 'AI & Computer Vision', level: 'EXPERT' },
+      { name: 'Multiplayer & Networking', level: 'ADVANCED' },
+      { name: 'WebGL & Full-Stack', level: 'CORE' },
+      { name: 'XR & Spatial Computing', level: 'ADVANCED' }
     ],
     links: {
-      portfolio: 'https://arbazarshad.dev',
-      github: 'https://github.com/arbazarshad',
-      linkedin: 'https://linkedin.com/in/arbazarshad',
-      email: 'mailto:arbaz@acedevs.dev'
+      portfolio: 'https://www.arbazarshad.com/',
+      github: 'https://github.com/arbazarshad7',
+      linkedin: 'https://www.linkedin.com/in/arbaz-arshad-x7',
+      email: 'mailto:arbazarshad7@gmail.com'
     },
     metrics: {
-      repositories: '24+',
-      contributions: '1,200+',
-      uptime: '99.98%',
-      architecture: 'DISTRIBUTED'
+      repositories: '11+',
+      contributions: 'Game Dev & AI',
+      uptime: '60 FPS / REALTIME',
+      architecture: 'GAME ENGINE & FSM'
     }
   },
   {
     id: 'devesh',
     code: 'DEV-02',
     name: 'Devesh Das',
-    designation: 'Co-Founder // Creative Technologist & Systems Architect',
-    shortDesignation: 'Creative Technologist',
-    role: 'Creative WebGL & Frontend Architecture',
-    sector: 'GRAPHICS & INTERACTION',
-    coordinates: '19.0760° N, 72.8777° E',
-    avatar: '/avatars/devesh.png',
+    designation: 'Co-Founder // Game Developer & Computer Science Engineer',
+    shortDesignation: 'Game Developer & CS Engineer',
+    role: 'Game Mechanics, Physics Engines & Interactive Systems',
+    sector: 'GAME SYSTEMS & PHYSICS',
+    tagline: 'Architecting Immersive Game Worlds & Interactive Systems',
+    coordinates: '20.2961° N, 85.8245° E',
+    avatar: 'https://github.com/ninja27dev.png',
     status: 'ONLINE // ACTIVE',
-    bio: 'Passionate about creative WebGL development, interactive digital twins, custom GLSL shader programming, and modern reactive client architectures. Champions AceDevs visual computing, procedural 3D aesthetics, and high-performance UI systems.',
+    bio: 'Computer Science & Engineering developer at Centurion University, Bhubaneswar specializing in Unity 3D, Blender asset creation, vehicle physics, and responsive game mechanics. Creator of White Ninja (3D action/stealth) and Pasha Palli (native Indian board game PWA), with strong foundations in C++, C#, Python, and React.',
     specialties: [
-      { name: 'Three.js & WebGL', level: 'CORE' },
-      { name: 'React & TypeScript', level: 'EXPERT' },
-      { name: 'Creative Coding & GLSL', level: 'CORE' },
-      { name: 'Next.js & Vite', level: 'ADVANCED' },
-      { name: 'UI/UX Design Systems', level: 'ARCHITECT' },
-      { name: 'Performance Tuning', level: 'EXPERT' }
+      { name: 'Unity 3D & C# Scripting', level: 'CORE' },
+      { name: 'Blender 3D & Modeling', level: 'EXPERT' },
+      { name: 'Physics & Wheel Colliders', level: 'CORE' },
+      { name: 'C++, Python & Java', level: 'EXPERT' },
+      { name: 'Game AI & State Machines', level: 'ADVANCED' },
+      { name: 'React 18 & Frontend', level: 'SKILLFUL' }
     ],
     links: {
-      portfolio: 'https://deveshdas.dev',
-      github: 'https://github.com/deveshdas',
-      linkedin: 'https://linkedin.com/in/deveshdas',
-      email: 'mailto:devesh@acedevs.dev'
+      portfolio: 'https://mrdeveshdas.vercel.app/',
+      github: 'https://github.com/ninja27dev',
+      linkedin: 'https://www.linkedin.com/in/devesh-das-9100ab266',
+      email: 'mailto:deveshkumardas08@gmail.com'
     },
     metrics: {
-      repositories: '20+',
-      contributions: '980+',
-      uptime: '60 FPS',
-      architecture: 'REACTIVE WEBGL'
+      repositories: '6+',
+      contributions: '3D Action & PWAs',
+      uptime: '60 FPS / RIGIDBODY',
+      architecture: 'PHYSICS & FSM'
     }
   }
 ];
@@ -83,9 +85,9 @@ export function getTeamMember(idOrCode) {
 export function getTeamStats() {
   return {
     totalFounders: TEAM_MEMBERS.length,
-    combinedRepos: '44+',
-    totalContributions: '2,180+',
-    primaryLocation: 'Mumbai, IN // Global Remote',
+    combinedRepos: '17+',
+    totalContributions: 'Games & Systems',
+    primaryLocation: 'Bhubaneswar, IN // Global Remote',
     synergyScore: '100% UNIFIED'
   };
 }

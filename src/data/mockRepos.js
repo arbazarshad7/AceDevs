@@ -4,218 +4,242 @@
  */
 
 export const LANGUAGE_COLORS = {
-  'Go': '#00ADD8',
-  'TypeScript': '#3178C6',
-  'JavaScript': '#F7DF1E',
-  'GLSL': '#56B6C2',
+  'C#': '#178600',
+  'C++': '#f34b7d',
   'Python': '#3572A5',
-  'Rust': '#DEA584',
+  'JavaScript': '#F7DF1E',
+  'TypeScript': '#3178C6',
+  'Java': '#b07219',
+  'ShaderLab': '#222c37',
+  'Jupyter Notebook': '#DA5B0B',
+  'Solidity': '#AA6746',
+  'HTML': '#E34C26',
   'CSS': '#563D7C',
-  'HTML': '#E34C26'
+  'GLSL': '#56B6C2'
 };
 
 export const MOCK_REPOSITORIES = [
   // 1. Arbaz Arshad (DEV-01) Projects
   {
     id: 101,
-    name: 'pulsar-mq',
-    fullName: 'arbazarshad/pulsar-mq',
-    description: 'High-throughput distributed message broker written in Go with Raft consensus, zero-copy serialization, and persistent disk commit logs.',
-    htmlUrl: 'https://github.com/arbazarshad/pulsar-mq',
-    homepage: 'https://pulsar-mq.dev',
-    stars: 342,
-    forks: 48,
-    language: 'Go',
-    topics: ['distributed-systems', 'raft', 'message-queue', 'go', 'high-throughput'],
+    name: 'Blackjacker',
+    fullName: 'arbazarshad7/Blackjacker',
+    description: 'Classic casino card game built from the ground up in Unity. Features card dealing physics, dealer AI state machines, and clean UI.',
+    htmlUrl: 'https://github.com/arbazarshad7/Blackjacker',
+    homepage: 'https://www.arbazarshad.com/',
+    stars: 14,
+    forks: 3,
+    language: 'C#',
+    topics: ['unity', 'csharp', 'game-dev', 'blackjack', 'card-game', 'ai'],
     updatedAt: '2026-10-12T14:22:00Z',
     archived: false,
     owner: {
       id: 'arbaz',
       code: 'DEV-01',
       name: 'Arbaz Arshad',
-      sector: 'BACKEND & CLOUD'
+      sector: 'GAME SYSTEMS & AI'
     }
   },
   {
     id: 102,
-    name: 'trie-search-engine',
-    fullName: 'arbazarshad/trie-search-engine',
-    description: 'Sub-millisecond in-memory Trie data structure and Inverted Index query engine with boolean tag filtering and zero external dependencies.',
-    htmlUrl: 'https://github.com/arbazarshad/trie-search-engine',
-    homepage: null,
-    stars: 185,
-    forks: 29,
-    language: 'TypeScript',
-    topics: ['algorithms', 'trie', 'inverted-index', 'search-engine', 'data-structures'],
+    name: 'AceNotes',
+    fullName: 'arbazarshad7/AceNotes',
+    description: 'User-centric note-sharing web app designed for collaborative learning. Features streamlined note organization, modern UI/UX, and rapid cloud sync.',
+    htmlUrl: 'https://github.com/arbazarshad7/AceNotes',
+    homepage: 'https://www.arbazarshad.com/',
+    stars: 18,
+    forks: 4,
+    language: 'JavaScript',
+    topics: ['full-stack', 'react', 'collaboration', 'notes', 'cloud'],
     updatedAt: '2026-10-10T09:15:00Z',
     archived: false,
     owner: {
       id: 'arbaz',
       code: 'DEV-01',
       name: 'Arbaz Arshad',
-      sector: 'BACKEND & CLOUD'
+      sector: 'GAME SYSTEMS & AI'
     }
   },
   {
     id: 103,
-    name: 'supabase-rls-guard',
-    fullName: 'arbazarshad/supabase-rls-guard',
-    description: 'CLI toolkit and automated test harness for PostgreSQL Row-Level Security (RLS) policies on Supabase applications.',
-    htmlUrl: 'https://github.com/arbazarshad/supabase-rls-guard',
-    homepage: null,
-    stars: 128,
-    forks: 16,
-    language: 'TypeScript',
-    topics: ['supabase', 'postgresql', 'row-level-security', 'database', 'auth'],
+    name: 'Cobra-Card-Game',
+    fullName: 'arbazarshad7/Cobra-Card-Game',
+    description: 'Multiplayer card game with complex turn management, per-phase state machines, DOTween procedural animations, and score calculation.',
+    htmlUrl: 'https://github.com/arbazarshad7',
+    homepage: 'https://www.arbazarshad.com/#projects',
+    stars: 26,
+    forks: 6,
+    language: 'C#',
+    topics: ['unity', 'csharp', 'multiplayer', 'state-machine', 'dotween'],
     updatedAt: '2026-10-06T18:40:00Z',
     archived: false,
     owner: {
       id: 'arbaz',
       code: 'DEV-01',
       name: 'Arbaz Arshad',
-      sector: 'BACKEND & CLOUD'
+      sector: 'GAME SYSTEMS & AI'
     }
   },
   {
     id: 104,
-    name: 'quantum-api-gateway',
-    fullName: 'arbazarshad/quantum-api-gateway',
-    description: 'Ultra-low latency asynchronous API gateway with token-bucket rate limiting, Redis cache replication, and JWT verification.',
-    htmlUrl: 'https://github.com/arbazarshad/quantum-api-gateway',
-    homepage: null,
-    stars: 94,
-    forks: 12,
-    language: 'Go',
-    topics: ['api-gateway', 'reverse-proxy', 'redis', 'rate-limiting', 'microservices'],
+    name: 'Online-Chess-Game',
+    fullName: 'arbazarshad7/Online-Chess-Game',
+    description: 'Casual game featuring multiplayer matchmaking, player statistics database, token and skin integration, and AI-driven enemy behaviour.',
+    htmlUrl: 'https://github.com/arbazarshad7',
+    homepage: 'https://www.arbazarshad.com/#projects',
+    stars: 31,
+    forks: 8,
+    language: 'C#',
+    topics: ['unity', 'chess', 'multiplayer', 'ai', 'game-design'],
     updatedAt: '2026-09-28T11:05:00Z',
     archived: false,
     owner: {
       id: 'arbaz',
       code: 'DEV-01',
       name: 'Arbaz Arshad',
-      sector: 'BACKEND & CLOUD'
+      sector: 'GAME SYSTEMS & AI'
     }
   },
   {
     id: 105,
-    name: 'distributed-task-mesh',
-    fullName: 'arbazarshad/distributed-task-mesh',
-    description: 'Fault-tolerant background job orchestrator with leader election, heartbeat telemetry monitoring, and exponential backoff.',
-    htmlUrl: 'https://github.com/arbazarshad/distributed-task-mesh',
-    homepage: null,
-    stars: 76,
-    forks: 8,
-    language: 'Go',
-    topics: ['job-orchestration', 'workers', 'distributed-systems', 'concurrency'],
+    name: 'AI-Crop-Recommendation',
+    fullName: 'arbazarshad7/AI-Crop-Recommendation',
+    description: 'Machine learning application using a Random Forest classifier to recommend optimal crops based on soil nutrients, GPS, and live weather telemetry.',
+    htmlUrl: 'https://github.com/arbazarshad7',
+    homepage: 'https://www.arbazarshad.com/#projects',
+    stars: 22,
+    forks: 5,
+    language: 'Python',
+    topics: ['machine-learning', 'python', 'random-forest', 'scikit-learn', 'apis'],
     updatedAt: '2026-09-15T16:50:00Z',
     archived: false,
     owner: {
       id: 'arbaz',
       code: 'DEV-01',
       name: 'Arbaz Arshad',
-      sector: 'BACKEND & CLOUD'
+      sector: 'GAME SYSTEMS & AI'
+    }
+  },
+  {
+    id: 106,
+    name: 'Vision-Robotic-Teleop',
+    fullName: 'arbazarshad7/Vision-Robotic-Teleop',
+    description: 'Computer-vision hand controller that translates sign-language gestures into real-time robotic teleoperation and movement commands.',
+    htmlUrl: 'https://github.com/arbazarshad7',
+    homepage: 'https://www.arbazarshad.com/#projects',
+    stars: 35,
+    forks: 7,
+    language: 'Python',
+    topics: ['computer-vision', 'opencv', 'robotics', 'python', 'gestures'],
+    updatedAt: '2026-08-20T12:00:00Z',
+    archived: false,
+    owner: {
+      id: 'arbaz',
+      code: 'DEV-01',
+      name: 'Arbaz Arshad',
+      sector: 'GAME SYSTEMS & AI'
     }
   },
 
   // 2. Devesh Das (DEV-02) Projects
   {
     id: 201,
-    name: 'cybernetic-digital-twin',
-    fullName: 'deveshdas/cybernetic-digital-twin',
-    description: 'Procedural 3D WebGL metropolitan digital twin with Three.js custom shaders, real-time light beacons, and interactive camera waypoints.',
-    htmlUrl: 'https://github.com/deveshdas/cybernetic-digital-twin',
-    homepage: 'https://deveshdas.dev/digital-twin',
-    stars: 412,
-    forks: 62,
-    language: 'JavaScript',
-    topics: ['threejs', 'webgl', 'glsl', 'digital-twin', 'creative-coding'],
+    name: 'WHITE-NINJA',
+    fullName: 'ninja27dev/WHITE-NINJA',
+    description: '3D stealth and action combat game featuring fluid ninja parkour locomotion, katana combos, sensory enemy perception AI, and stylized shaders.',
+    htmlUrl: 'https://github.com/ninja27dev/WHITE-NINJA',
+    homepage: 'https://mrdeveshdas.vercel.app/#projects',
+    stars: 38,
+    forks: 9,
+    language: 'ShaderLab',
+    topics: ['unity3d', 'csharp', 'stealth-game', 'combat-physics', 'enemy-ai', 'shaders'],
     updatedAt: '2026-10-13T20:10:00Z',
     archived: false,
     owner: {
       id: 'devesh',
       code: 'DEV-02',
       name: 'Devesh Das',
-      sector: 'GRAPHICS & INTERACTION'
+      sector: 'GAME SYSTEMS & PHYSICS'
     }
   },
   {
     id: 202,
-    name: 'glsl-pulse-shaders',
-    fullName: 'deveshdas/glsl-pulse-shaders',
-    description: 'Curated collection of high-performance GLSL fragment and vertex shaders for sci-fi HUDs, energy pulse splines, and particle holograms.',
-    htmlUrl: 'https://github.com/deveshdas/glsl-pulse-shaders',
-    homepage: null,
-    stars: 289,
-    forks: 41,
-    language: 'GLSL',
-    topics: ['glsl', 'shaders', 'webgl', 'threejs', 'visual-effects'],
+    name: 'Pasha-Palli',
+    fullName: 'ninja27dev/Pasha-Palli',
+    description: 'Traditional Indian cross-race dice board game built as a Progressive Web App (PWA). Features 4-player token FSM, bot AI, Web Audio SFX, and offline play.',
+    htmlUrl: 'https://github.com/ninja27dev/Pasha-Palli',
+    homepage: 'https://pashapallibyninjadev.netlify.app/',
+    stars: 27,
+    forks: 5,
+    language: 'JavaScript',
+    topics: ['pwa', 'game-ai', 'offline-first', 'fsm', 'web-audio', 'javascript'],
     updatedAt: '2026-10-11T16:30:00Z',
     archived: false,
     owner: {
       id: 'devesh',
       code: 'DEV-02',
       name: 'Devesh Das',
-      sector: 'GRAPHICS & INTERACTION'
+      sector: 'GAME SYSTEMS & PHYSICS'
     }
   },
   {
     id: 203,
-    name: 'tactical-hud-primitives',
-    fullName: 'deveshdas/tactical-hud-primitives',
-    description: 'Modern React component library for tactical digital twin interfaces featuring 45° chamfered geometry, hairline SVG borders, and scanline shaders.',
-    htmlUrl: 'https://github.com/deveshdas/tactical-hud-primitives',
-    homepage: null,
-    stars: 164,
-    forks: 23,
-    language: 'TypeScript',
-    topics: ['design-system', 'react', 'hud', 'glassmorphism', 'chamfer'],
+    name: 'Mini-Car-Simulation',
+    fullName: 'ninja27dev/Mini-Car-Simulation',
+    description: 'High-fidelity virtual driving environment built in Unity. Features realistic vehicle physics, suspension dynamics, acceleration curves, and wheel colliders.',
+    htmlUrl: 'https://github.com/ninja27dev',
+    homepage: 'https://mrdeveshdas.vercel.app/#projects',
+    stars: 19,
+    forks: 4,
+    language: 'C#',
+    topics: ['unity', 'csharp', 'physics-engine', 'wheel-colliders', 'simulation'],
     updatedAt: '2026-10-08T12:00:00Z',
     archived: false,
     owner: {
       id: 'devesh',
       code: 'DEV-02',
       name: 'Devesh Das',
-      sector: 'GRAPHICS & INTERACTION'
+      sector: 'GAME SYSTEMS & PHYSICS'
     }
   },
   {
     id: 204,
-    name: 'audio-spectral-visualizer',
-    fullName: 'deveshdas/audio-spectral-visualizer',
-    description: 'Web Audio API real-time FFT frequency spectrum visualizer rendering multi-channel oscilloscopes on WebGL canvas at 60 FPS.',
-    htmlUrl: 'https://github.com/deveshdas/audio-spectral-visualizer',
-    homepage: 'https://deveshdas.dev/audio',
-    stars: 118,
-    forks: 19,
-    language: 'JavaScript',
-    topics: ['web-audio-api', 'fft', 'audio-visualizer', 'canvas', 'dsp'],
+    name: 'Palworld-Pals-Stats',
+    fullName: 'ninja27dev/Palworld-Pals-Stats',
+    description: 'Interactive data visualization dashboard and analytics suite for Palworld creature attributes built with Python, Dash, Plotly, and Pandas.',
+    htmlUrl: 'https://github.com/ninja27dev/Palworld-Pals-Stats',
+    homepage: 'https://mrdeveshdas.vercel.app/#projects',
+    stars: 15,
+    forks: 2,
+    language: 'Jupyter Notebook',
+    topics: ['python', 'dash', 'plotly', 'pandas', 'data-visualization', 'eda'],
     updatedAt: '2026-09-30T15:20:00Z',
     archived: false,
     owner: {
       id: 'devesh',
       code: 'DEV-02',
       name: 'Devesh Das',
-      sector: 'GRAPHICS & INTERACTION'
+      sector: 'GAME SYSTEMS & PHYSICS'
     }
   },
   {
     id: 205,
-    name: 'spatial-orbit-controls',
-    fullName: 'deveshdas/spatial-orbit-controls',
-    description: 'Smooth inertia camera navigation controller for Three.js with azimuthal degree telemetry tracking and touch gesture normalization.',
-    htmlUrl: 'https://github.com/deveshdas/spatial-orbit-controls',
-    homepage: null,
-    stars: 87,
-    forks: 11,
+    name: 'Teacher-Payout-Smart-Contract',
+    fullName: 'ninja27dev/Teacher-Payout-Smart-Contract',
+    description: 'Blockchain payment automation smart contract on the Stacks network automating compensation disbursement to educator wallets based on completion rates.',
+    htmlUrl: 'https://github.com/ninja27dev/Teacher-Payout-Smart-Contract',
+    homepage: 'https://mrdeveshdas.vercel.app/#projects',
+    stars: 12,
+    forks: 1,
     language: 'TypeScript',
-    topics: ['threejs', 'camera-controls', 'orbit', 'telemetry', 'math'],
+    topics: ['blockchain', 'stacks', 'clarity', 'smart-contracts', 'web3'],
     updatedAt: '2026-09-22T19:40:00Z',
     archived: false,
     owner: {
       id: 'devesh',
       code: 'DEV-02',
       name: 'Devesh Das',
-      sector: 'GRAPHICS & INTERACTION'
+      sector: 'GAME SYSTEMS & PHYSICS'
     }
   },
 
@@ -237,7 +261,7 @@ export const MOCK_REPOSITORIES = [
       id: 'collective',
       code: 'ACEDEVS',
       name: 'AceDevs Collective',
-      sector: 'FULL-STACK & GRAPHICS'
+      sector: 'GAMES & DIGITAL TWIN'
     }
   }
 ];

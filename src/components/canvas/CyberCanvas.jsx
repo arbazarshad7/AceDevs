@@ -72,17 +72,34 @@ export default function CyberCanvas({
     const unregisterTick = (cb) => tickCallbacks.delete(cb);
 
     // 5. Main Render Loop with Visibility Optimization
-    const clock = new THREE.Clock();
+    let timer;
+    if (THREE.Timer) {
+      timer = new THREE.Timer();
+    } else {
+      timer = new THREE.Clock();
+    }
     let isPaused = false;
 
     const animate = () => {
       if (isPaused) return;
       animFrameId.current = requestAnimationFrame(animate);
-      const delta = clock.getDelta();
-      const elapsedTime = clock.getElapsedTime();
+
+      let delta = 0.016;
+      let elapsedTime = 0;
+      if (timer.update && timer.getDelta) {
+        timer.update();
+        delta = timer.getDelta();
+        elapsedTime = timer.getElapsed();
+      } else {
+        delta = timer.getDelta();
+        elapsedTime = timer.getElapsedTime();
+      }
+
+      // Clamp delta to prevent huge jumps
+      const safeDelta = Math.min(delta, 0.05);
 
       // Execute registered sub-component updates
-      tickCallbacks.forEach((cb) => cb(elapsedTime, delta));
+      tickCallbacks.forEach((cb) => cb(elapsedTime, safeDelta));
 
       renderer.render(scene, camera);
     };
@@ -98,7 +115,11 @@ export default function CyberCanvas({
       } else {
         if (isPaused) {
           isPaused = false;
-          clock.getDelta(); // flush delta so clock doesn't produce jump
+          if (timer.update) {
+            timer.update();
+          } else {
+            timer.getDelta(); // flush delta
+          }
           animate();
         }
       }
@@ -112,6 +133,7 @@ export default function CyberCanvas({
       const h = container.clientHeight || window.innerHeight;
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
       renderer.setSize(w, h);
     };
     window.addEventListener('resize', handleResize);

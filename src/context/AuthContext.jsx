@@ -4,6 +4,8 @@ import { supabase, checkConnection, isConfigured } from '../services/supabaseCli
 const AuthContext = createContext(null);
 
 const DEFAULT_DEV_EMAILS = [
+  'arbazarshad7@gmail.com',
+  'deveshkumardas08@gmail.com',
   'arbazarshad@gmail.com',
   'deveshdas@gmail.com',
   'arbaz@acedevs.io',
@@ -46,7 +48,7 @@ function resolveDeveloperProfile(user) {
       code: isArbaz ? 'DEV-01' : 'DEV-02',
       name: isArbaz ? 'Arbaz Arshad' : 'Devesh Das',
       email: user.email,
-      designation: isArbaz ? 'Full-Stack & Systems Architect' : 'Distributed Systems & Cloud Engineer'
+      designation: isArbaz ? 'Game Developer · AI & Systems' : 'Game Developer & Computer Science Engineer'
     }
   };
 }

@@ -80,8 +80,8 @@ export default function PostEditorModal({
 
     try {
       const author = authorId === 'arbaz'
-        ? { id: 'arbaz', code: 'DEV-01', name: 'Arbaz Arshad', designation: 'Full-Stack & Systems Architect' }
-        : { id: 'devesh', code: 'DEV-02', name: 'Devesh Das', designation: 'Distributed Systems & Cloud Engineer' };
+        ? { id: 'arbaz', code: 'DEV-01', name: 'Arbaz Arshad', designation: 'Game Developer · AI & Systems' }
+        : { id: 'devesh', code: 'DEV-02', name: 'Devesh Das', designation: 'Game Developer & Computer Science Engineer' };
 
       const postData = {
         title,
