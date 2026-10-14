@@ -8,8 +8,8 @@ export const TEAM_MEMBERS = [
     id: 'arbaz',
     code: 'DEV-01',
     name: 'Arbaz Arshad',
-    designation: 'Co-Founder // Game Developer · AI Systems · Tech Wizard',
-    shortDesignation: 'Game Developer & AI Engineer',
+    designation: 'Co-Founder // Game Developer & Creative Technologist',
+    shortDesignation: 'Game Developer & Creative Technologist',
     role: 'Game Design, Multiplayer Systems & AI / XR',
     sector: 'GAME SYSTEMS & AI',
     tagline: 'CODE · CREATE · CONQUER',
@@ -26,7 +26,7 @@ export const TEAM_MEMBERS = [
       { name: 'XR & Spatial Computing', level: 'ADVANCED' }
     ],
     links: {
-      portfolio: 'https://www.arbazarshad.com/',
+      portfolio: 'https://arbazarshad.vercel.app/',
       github: 'https://github.com/arbazarshad7',
       linkedin: 'https://www.linkedin.com/in/arbaz-arshad-x7',
       email: 'mailto:arbazarshad7@gmail.com'

@@ -10,6 +10,14 @@ class SoundService {
     this.droneNodes = [];
     this.isDronePlaying = false;
     this.masterVolume = 0.18; // Subtle background level
+
+    // Space ambient background music (leberch-space-ambient-509783.mp3)
+    this.bgMusic = null;
+    this.isMusicPlaying = false;
+    this.bgMusicUrl = '/audio/space-ambient.mp3';
+    this.targetMusicVolume = 0.40; // Optimal atmospheric background volume
+    this.fadeInterval = null;
+    this._hasUnlockedAudio = false;
   }
 
   /**
@@ -38,10 +46,105 @@ class SoundService {
   }
 
   /**
-   * Starts procedural sub-bass cybernetic ambient drone.
-   * Dual detuned oscillators (55Hz and 110Hz) through a 24dB low-pass filter modulated by slow LFO.
+   * Starts playing the space ambient background music (leberch-space-ambient-509783.mp3)
+   * with smooth fade-in and automatic looping.
+   */
+  startBackgroundMusic() {
+    if (typeof window === 'undefined') return;
+
+    if (!this.bgMusic) {
+      this.bgMusic = new Audio(this.bgMusicUrl);
+      this.bgMusic.loop = true;
+      this.bgMusic.preload = 'auto';
+    }
+
+    if (this.fadeInterval) {
+      clearInterval(this.fadeInterval);
+      this.fadeInterval = null;
+    }
+
+    this.bgMusic.volume = 0.001;
+    const playPromise = this.bgMusic.play();
+
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          this.isMusicPlaying = true;
+          // Smooth fade in to target volume over 1.2s
+          let currentVol = 0.001;
+          const step = (this.targetMusicVolume - currentVol) / 24;
+          this.fadeInterval = setInterval(() => {
+            currentVol += step;
+            if (currentVol >= this.targetMusicVolume) {
+              currentVol = this.targetMusicVolume;
+              clearInterval(this.fadeInterval);
+              this.fadeInterval = null;
+            }
+            if (this.bgMusic) {
+              this.bgMusic.volume = Math.min(Math.max(currentVol, 0), 1);
+            }
+          }, 50);
+        })
+        .catch((err) => {
+          console.warn('[SoundService] Autoplay blocked, awaiting user gesture:', err.message);
+          if (!this._hasUnlockedAudio) {
+            const unlockHandler = () => {
+              this._hasUnlockedAudio = true;
+              window.removeEventListener('click', unlockHandler);
+              window.removeEventListener('keydown', unlockHandler);
+              if (this.bgMusic && !this.isMusicPlaying) {
+                this.startBackgroundMusic();
+              }
+            };
+            window.addEventListener('click', unlockHandler);
+            window.addEventListener('keydown', unlockHandler);
+          }
+        });
+    }
+  }
+
+  /**
+   * Stops the space ambient background music with smooth fade-out.
+   */
+  stopBackgroundMusic() {
+    if (!this.bgMusic || !this.isMusicPlaying) return;
+
+    if (this.fadeInterval) {
+      clearInterval(this.fadeInterval);
+      this.fadeInterval = null;
+    }
+
+    let currentVol = this.bgMusic.volume;
+    const step = currentVol / 15;
+
+    this.fadeInterval = setInterval(() => {
+      currentVol -= step;
+      if (currentVol <= 0.01) {
+        currentVol = 0.0;
+        clearInterval(this.fadeInterval);
+        this.fadeInterval = null;
+        if (this.bgMusic) {
+          this.bgMusic.volume = 0.0;
+          this.bgMusic.pause();
+          this.isMusicPlaying = false;
+        }
+      } else {
+        if (this.bgMusic) {
+          this.bgMusic.volume = Math.min(Math.max(currentVol, 0), 1);
+        }
+      }
+    }, 35);
+  }
+
+  /**
+   * Starts ambient soundscape: activates space ambient background music
+   * alongside subtle procedural sub-bass cybernetic drone.
    */
   startAmbientDrone() {
+    // 1. Start space ambient background music
+    this.startBackgroundMusic();
+
+    // 2. Start procedural sub-bass drone
     const ctx = this.initContext();
     if (!ctx || this.isDronePlaying) return;
 
@@ -51,22 +154,22 @@ class SoundService {
       // Drone master gain with fade in
       this.droneGain = ctx.createGain();
       this.droneGain.gain.setValueAtTime(0.0001, now);
-      this.droneGain.gain.exponentialRampToValueAtTime(0.12, now + 1.2);
+      this.droneGain.gain.exponentialRampToValueAtTime(0.08, now + 1.2);
       this.droneGain.connect(this.masterGain);
 
-      // 24dB Lowpass Filter (cascaded biquad filters for deep tactical warmth)
+      // 24dB Lowpass Filter (deep tactical warmth)
       const filter = ctx.createBiquadFilter();
       filter.type = 'lowpass';
-      filter.frequency.setValueAtTime(160, now);
-      filter.Q.setValueAtTime(2.5, now);
+      filter.frequency.setValueAtTime(140, now);
+      filter.Q.setValueAtTime(2.0, now);
       filter.connect(this.droneGain);
 
       // Slow LFO for subtle breathing movement
       const lfo = ctx.createOscillator();
       const lfoGain = ctx.createGain();
       lfo.type = 'sine';
-      lfo.frequency.setValueAtTime(0.12, now); // 0.12 Hz cycle
-      lfoGain.gain.setValueAtTime(45, now);    // Modulate cutoff by ±45Hz
+      lfo.frequency.setValueAtTime(0.1, now);
+      lfoGain.gain.setValueAtTime(35, now);
       lfo.connect(lfoGain);
       lfoGain.connect(filter.frequency);
       lfo.start(now);
@@ -79,31 +182,27 @@ class SoundService {
       osc1.connect(filter);
       osc1.start(now);
 
-      // Oscillator 2: First Harmonic 110Hz (A2)
-      const osc2 = ctx.createOscillator();
-      osc2.type = 'triangle';
-      osc2.frequency.setValueAtTime(110, now);
-      osc2.detune.setValueAtTime(6, now);
-      osc2.connect(filter);
-      osc2.start(now);
-
-      this.droneNodes = [osc1, osc2, lfo, lfoGain, filter];
+      this.droneNodes = [osc1, lfo, lfoGain, filter];
       this.isDronePlaying = true;
     } catch (err) {
-      console.warn('[SoundService] Failed to start ambient drone:', err);
+      console.warn('[SoundService] Failed to start procedural drone:', err);
     }
   }
 
   /**
-   * Stops ambient drone with smooth fade-out.
+   * Stops ambient soundscape: fades out both space music and drone.
    */
   stopAmbientDrone() {
+    // 1. Stop background music
+    this.stopBackgroundMusic();
+
+    // 2. Stop procedural drone
     if (!this.ctx || !this.isDronePlaying || !this.droneGain) return;
 
     try {
       const now = this.ctx.currentTime;
       this.droneGain.gain.setValueAtTime(this.droneGain.gain.value, now);
-      this.droneGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.6);
+      this.droneGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.5);
 
       setTimeout(() => {
         this.droneNodes.forEach((node) => {
@@ -120,7 +219,7 @@ class SoundService {
         }
         this.droneNodes = [];
         this.isDronePlaying = false;
-      }, 650);
+      }, 550);
     } catch (err) {
       console.warn('[SoundService] Failed to stop ambient drone:', err);
       this.isDronePlaying = false;

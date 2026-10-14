@@ -83,10 +83,10 @@ export const TEAM_MEMBERS = [
     id: 'arbaz',
     code: 'DEV-01',
     name: 'Arbaz Arshad',
-    designation: 'Co-Founder // Game Developer · AI Systems · Tech Wizard',
+    designation: 'Co-Founder // Game Developer & Creative Technologist',
     coordinates: '20.2961° N, 85.8245° E', // Centurion University, Bhubaneswar
     links: {
-      portfolio: 'https://www.arbazarshad.com/',
+      portfolio: 'https://arbazarshad.vercel.app/',
       github: 'https://github.com/arbazarshad7',
       linkedin: 'https://www.linkedin.com/in/arbaz-arshad-x7',
       email: 'mailto:arbazarshad7@gmail.com'

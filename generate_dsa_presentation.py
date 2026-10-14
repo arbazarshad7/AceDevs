@@ -165,7 +165,7 @@ def create_deck():
     p1.font.color.rgb = C_WHITE
 
     p1_sub = tf1.add_paragraph()
-    p1_sub.text = "Lead Architect & Systems Engineer [DEV-01]\nGame Systems, AI & XR\nPortfolio: arbazarshad.com\nGitHub: github.com/arbazarshad7"
+    p1_sub.text = "Lead Architect & Systems Engineer [DEV-01]\nGame Developer & Creative Technologist\nPortfolio: arbazarshad.vercel.app\nGitHub: github.com/arbazarshad7"
     p1_sub.font.name = FONT_BODY
     p1_sub.font.size = Pt(11)
     p1_sub.font.color.rgb = C_MUTED
@@ -962,7 +962,7 @@ def create_deck():
     links_text = [
         ("PLATFORM: ", "AceDevs Collective Digital Twin"),
         ("LOCATION: ", "Bhubaneswar, IN [20.2961° N, 85.8245° E]"),
-        ("DEV-01: ", "Arbaz Arshad (arbazarshad.com)"),
+        ("DEV-01: ", "Arbaz Arshad (arbazarshad.vercel.app)"),
         ("DEV-02: ", "Devesh Das (mrdeveshdas.vercel.app)"),
         ("CODE REPO: ", "github.com/arbazarshad7/AceDevs"),
         ("TECH STACK: ", "React 18 · Three.js · Custom Trie · Supabase")

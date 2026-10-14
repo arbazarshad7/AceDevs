@@ -15,7 +15,7 @@
 
 | Developer | Role & Sector | Portfolio & Coordinates | Links |
 | :--- | :--- | :--- | :--- |
-| **Arbaz Arshad** `[DEV-01]` | Co-Founder // Game Systems, AI & XR | **Bhubaneswar, IN**<br>`20.2961° N, 85.8245° E` | 🌐 [arbazarshad.com](https://www.arbazarshad.com/)<br>🐙 [GitHub: @arbazarshad7](https://github.com/arbazarshad7)<br>💼 [LinkedIn](https://www.linkedin.com/in/arbaz-arshad-x7) |
+| **Arbaz Arshad** `[DEV-01]` | Co-Founder // Game Developer & Creative Technologist | **Bhubaneswar, IN**<br>`20.2961° N, 85.8245° E` | 🌐 [arbazarshad.vercel.app](https://arbazarshad.vercel.app/)<br>🐙 [GitHub: @arbazarshad7](https://github.com/arbazarshad7)<br>💼 [LinkedIn](https://www.linkedin.com/in/arbaz-arshad-x7) |
 | **Devesh Das** `[DEV-02]` | Co-Founder // Game Physics & CS Engineering | **Bhubaneswar, IN**<br>`20.2961° N, 85.8245° E` | 🌐 [mrdeveshdas.vercel.app](https://mrdeveshdas.vercel.app/)<br>🐙 [GitHub: @ninja27dev](https://github.com/ninja27dev)<br>💼 [LinkedIn](https://www.linkedin.com/in/devesh-das-9100ab266) |
 
 ---

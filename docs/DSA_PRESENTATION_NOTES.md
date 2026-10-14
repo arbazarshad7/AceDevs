@@ -3,7 +3,7 @@
 
 - **PowerPoint File**: [`Trie_Inverted_Index_Search_Engine_DSA.pptx`](file:///d:/Work/AceDevs/Trie_Inverted_Index_Search_Engine_DSA.pptx)
 - **Presenters**:
-  - **Arbaz Arshad** `[DEV-01]` (Co-Founder // Game Systems, AI & XR — `arbazarshad.com`)
+  - **Arbaz Arshad** `[DEV-01]` (Co-Founder // Game Developer & Creative Technologist — `arbazarshad.vercel.app`)
   - **Devesh Das** `[DEV-02]` (Co-Founder // Game Mechanics & CS Engineering — `mrdeveshdas.vercel.app`)
 - **Institution**: Department of Computer Science & Engineering, Centurion University, Bhubaneswar
 - **Domain Context**: AceDevs Collective Digital Twin Platform (`https://github.com/arbazarshad7/AceDevs`)
@@ -112,6 +112,6 @@
 ---
 
 ### Slide 12: Conclusion & Q&A
-- **Visuals**: Key project takeaways, live URLs (`arbazarshad.com`, `mrdeveshdas.vercel.app`, GitHub), and Q&A invitation.
+- **Visuals**: Key project takeaways, live URLs (`arbazarshad.vercel.app`, `mrdeveshdas.vercel.app`, GitHub), and Q&A invitation.
 - **Speaker Script**:
   > "In conclusion, our Trie-Based Multi-Tag Search & Inverted Index Engine demonstrates that classical computer science data structures, when thoughtfully combined, vastly outperform third-party cloud APIs in responsiveness, resiliency, and user experience. Thank you, and we now welcome any questions."

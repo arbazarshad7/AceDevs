@@ -164,14 +164,14 @@ Modern browsers restrict audio playback until an explicit user interaction (clic
 - **`initContext()`**: Instantiates `new (window.AudioContext || window.webkitAudioContext)()`.
 - **`resumeIfNeeded()`**: Checks if `audioCtx.state === 'suspended'` and calls `audioCtx.resume()` upon first user gesture.
 
-### 4.2 Synthetic Sound Methods
+### 4.2 Audio Methods & Background Music
 
-| Method | Synthesis Characteristics | Intended UI Trigger |
+| Method | Audio Pipeline / Synthesis Characteristics | Intended UI Trigger |
 | :--- | :--- | :--- |
-| `startAmbientDrone()` | 55Hz & 55.4Hz dual detuned sawtooth + 180Hz lowpass filter | Enabled via HUD header sound switch |
-| `stopAmbientDrone()` | Smooth exponential gain fade-out to zero | Muted via HUD header sound switch |
-| `playClick()` | 440Hz Sine wave, 40ms duration, exponential gain ramp | ChamferButton clicks, tab selections |
-| `playHover()` | 880Hz Sine blip, 25ms duration, -24dB low amplitude | Card hovers, navigation link hovers |
-| `playKeypress()` | 1200Hz micro-chirp, 15ms duration | Keystrokes in HUD Search Modal |
-| `playModalOpen()` | Upward frequency sweep (220Hz ➔ 660Hz) over 80ms | Opening Search Modal or Auth Gateway |
-| `playAccessDenied()` | Dissonant dual square waves (150Hz + 110Hz) | Unauthorized admin route attempts |
+| `startAmbientDrone()` | Streams `leberch-space-ambient-509783.mp3` with smooth fade-in + 55Hz sub-bass layer | Enabled via HUD bottom sound toggle (`SOUND [ON]`) |
+| `stopAmbientDrone()` | Smooth 500ms fade-out and pause of ambient track and drone | Muted via HUD bottom sound toggle (`SOUND [OFF]`) |
+| `playClick()` | 1200Hz -> 600Hz Sine ramp, 40ms decay | ChamferButton clicks, section selections |
+| `playHover()` | 920Hz Sine blip, 20ms duration, soft gain | Card hovers, navigation link hovers |
+| `playKeypress()` | 1850Hz -> 1200Hz triangle pulse, 18ms duration | Keystrokes in HUD Search Modal |
+| `playModalOpen()` | Ascending frequency sweep (380Hz ➔ 1650Hz) over 100ms | Opening Search Modal or Auth Gateway |
+| `playAccessDenied()` | Dissonant dual square waves (180Hz) | Unauthorized admin route attempts |

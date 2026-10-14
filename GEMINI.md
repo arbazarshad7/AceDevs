@@ -37,7 +37,7 @@ AceDevs is a team portfolio website for developers **Arbaz Arshad** and **Devesh
 
 - **Visual Design**: Strict adherence to the Tactical Sci-Fi HUD aesthetic. Deep space navy canvas (`#020a19`), ice cyan luminescence (`#d5e0ff`), 45° chamfered polygon corners, perimeter viewport brackets (`[00]`), and monospace telemetry indices.
 - **Founders & Attribution**:
-  - Arbaz Arshad `[DEV-01]`: Game Developer · AI Systems · Tech Wizard (`arbazarshad.com`, `github.com/arbazarshad7`).
+  - Arbaz Arshad `[DEV-01]`: Game Developer & Creative Technologist (`arbazarshad.vercel.app`, `github.com/arbazarshad7`).
   - Devesh Das `[DEV-02]`: Game Developer & CS Engineer (`mrdeveshdas.vercel.app`, `github.com/ninja27dev`).
   - Headquarters: `BHUBANESWAR, IN // GLOBAL REMOTE` (`20.2961° N, 85.8245° E`, Centurion University).
 - **Graceful Degradation**: Always provide local fallbacks (`mockRepos.js`, `blogPosts.js`, `FallbackMockAuthClient`). The frontend must NEVER crash or blank out due to missing API keys or offline network status.

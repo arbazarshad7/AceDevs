@@ -163,7 +163,7 @@ def build_simple_deck():
     pa1.font.color.rgb = C_WHITE
 
     pa2 = tfa.add_paragraph()
-    pa2.text = "Lead Architect [DEV-01]\nGame Systems & AI\nPortfolio: arbazarshad.com\nGitHub: arbazarshad7"
+    pa2.text = "Lead Architect [DEV-01]\nGame Developer & Creative Technologist\nPortfolio: arbazarshad.vercel.app\nGitHub: arbazarshad7"
     pa2.font.name = FONT_BODY
     pa2.font.size = Pt(11)
     pa2.font.color.rgb = C_MUTED
@@ -699,7 +699,7 @@ def build_simple_deck():
 
     pq2 = tfqa.add_paragraph()
     pq2.text = (
-        "• Arbaz Arshad [DEV-01]: arbazarshad.com\n"
+        "• Arbaz Arshad [DEV-01]: arbazarshad.vercel.app\n"
         "• Devesh Das [DEV-02]: mrdeveshdas.vercel.app\n"
         "• Code Repository: github.com/arbazarshad7/AceDevs\n"
         "• Centurion University, Bhubaneswar"

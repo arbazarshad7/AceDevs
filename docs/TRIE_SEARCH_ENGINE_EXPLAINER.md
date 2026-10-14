@@ -51,7 +51,7 @@ It is integrated live into **AceDevs** (the collective developer portfolio and 3
 - **Top Badge**: `CENTURION UNIVERSITY // CSE DEPARTMENT // DSA CAPSTONE`
 - **Main Heading**: **The Trie & Inverted Index Search Engine**
 - **Subtitle**: Zero-latency in-memory prefix autocomplete and multi-tag discovery built for the AceDevs platform.
-- **Presenter Card 1**: **Arbaz Arshad** `[DEV-01]` (Lead Architect, Game Systems & AI Engineer, `arbazarshad.com`, `github.com/arbazarshad7`).
+- **Presenter Card 1**: **Arbaz Arshad** `[DEV-01]` (Lead Architect, Game Developer & Creative Technologist, `arbazarshad.vercel.app`, `github.com/arbazarshad7`).
 - **Presenter Card 2**: **Devesh Das** `[DEV-02]` (CS & Physics Engineer, Game Mechanics & Engines, `mrdeveshdas.vercel.app`, `github.com/ninja27dev`).
 - **Key Highlights Pill**: `< 1.5ms` Latency · `100%` Client-Side In-Memory · `0` NPM Search Dependencies · `100%` Offline Resilient.
 
@@ -258,7 +258,7 @@ A high-contrast 3-column comparative diagram contrasting:
   - Fluid 60 FPS experience with zero UI thread blocking.
   - Battle-tested in the production AceDevs portfolio.
 - **Bottom Right Card**: **Project Access & Q&A**:
-  - Co-founders: Arbaz Arshad (`arbazarshad.com`) & Devesh Das (`mrdeveshdas.vercel.app`).
+  - Co-founders: Arbaz Arshad (`arbazarshad.vercel.app`) & Devesh Das (`mrdeveshdas.vercel.app`).
   - Code repository: `github.com/arbazarshad7/AceDevs`.
   - Open for questions and discussion.
 
